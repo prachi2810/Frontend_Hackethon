@@ -1,5 +1,6 @@
 
 import './App.css';
+import Home from './Components/Home/Home';
 
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
     <div className="App">
       
       {/* <AppContainer/> */}
+      <Home/>
     </div>
   );
 }

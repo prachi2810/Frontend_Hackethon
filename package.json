@@ -7,6 +7,8 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "bootstrap": "^5.2.3",
+    "bootstrap-icons": "^1.10.3",
+    "font-awesome": "^4.7.0",
     "grapesjs": "^0.20.4",
     "grapesjs-blocks-basic": "^1.0.1",
     "grapesjs-preset-webpage": "^1.0.2",
