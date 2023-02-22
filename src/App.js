@@ -1,25 +1,26 @@
 
 import './App.css';
-import Home from './Components/Home/Home';
+
 import { Routes, Route } from "react-router-dom";
 import Addpage from './Components/Addpage/Addpage';
-import LandingPage from './Components/LandingPage/LandingPage';
-
+import Home from './Components/Home/Home';
+import Editor from './Components/Editor/Editor';
 function App() {
   return (
     <div className="App">
     <Routes>
-    <Route path="landingPage">
-         <Route index element={<LandingPage/>}></Route>
+    <Route path="">
+         <Route index element={<><Home/></>}></Route>
       </Route>
-    <Route path="addPage">
-         <Route index element={<Addpage/>}></Route>
+    <Route path="home">
+         <Route index element={<><Home/></>}></Route>
       </Route>
-      <Route path="drag-and-drop">
-         <Route index element={<Home/>}></Route>
+      <Route path="editor">
+         <Route index element={<Editor/>}></Route>
       </Route>
-  
-      
+      <Route path="addPage">
+         <Route index element={<><Addpage/></>}></Route>
+      </Route>
     </Routes>
     </div>
   );

@@ -8,7 +8,7 @@ function Addpage() {
             <div className="container">
                 <div className='row first'>
                     <div className='col-md-6'>
-                        <div className='title'>
+                        <div className='title1'>
                             <h3>All Pages</h3>
                         </div>
 
@@ -19,9 +19,9 @@ function Addpage() {
                         <button type="button" class="buttonVal" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i class="bi bi-plus"></i>Add New Page</button>
                     </div>
                 </div>
-                <form className='row'>
+                {/* <form className='row'> */}
 
-                    <div className="col-md-1 p-0">
+                    {/* <div className="col-md-1 p-0">
                         <div className='name'>
                             <h6 className='mt-1'>Show </h6>
                         </div>
@@ -32,12 +32,12 @@ function Addpage() {
                     <div className="col-md-1 p-0">
                         <div className='name1'>
                             <h6 className='mt-1'>Entries</h6>
-                        </div>
-                    </div>
-                    <div className='col-md-6 searchDiv'>
+                        </div> */}
+                    {/* </div> */}
+                    <div className='d-flex justify-content-center searchDiv'>
                         <div className="input-group searchbar">
                             <input type="text" placeholder="Search" id="search" className="form-control" />
-                            <button className='button'>
+                            <button className='searchButton'>
                                 <span classNae="input-group-text" id="basic-addon1">
                                     <i className="bi bi-search"></i>
                                 </span>
@@ -47,7 +47,7 @@ function Addpage() {
                             </button> */}
                         </div>
                     </div>
-                </form>
+                {/* </form> */}
                 <div className='header'>
                     <div className='row'>
 
@@ -108,6 +108,8 @@ function Addpage() {
                             <form>
                                 <div class="mb-3">
                                     <label for="recipient-name" class="col-form-label">Title:</label>
+                                    <input type="text" class="form-control" id="recipient-name" />
+                                    <label for="recipient-name" class="col-form-label">Domain:</label>
                                     <input type="text" class="form-control" id="recipient-name" />
                                 </div>
 
