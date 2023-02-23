@@ -1,8 +1,9 @@
-.nav{
+.navb{
     /* background-color:rgba(250, 250, 250, 0.9); */
     position: fixed;
     /* z-index: 10000; */
 }
+
 .navbar-nav > li{
     padding-left:15px;
     padding-right:15px;
