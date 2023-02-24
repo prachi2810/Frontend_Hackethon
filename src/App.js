@@ -25,6 +25,7 @@ function App() {
       <Route path="addPage">
          <Route index element={<><Addpage/></>}></Route>
       </Route>
+     
     </Routes>
     </div>
   );

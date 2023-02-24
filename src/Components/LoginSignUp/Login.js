@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react';
 // import useData from '../../hooks/useData';
 import "./login.css";
-import ImageF from "../../Images/signinLab.jpg";
+import ImageF from "../../Images/login1.png";
 import Google from "../../Images/icons8-google.svg";
 import ImageS from "../../Images/signupLap.jpg";
 // import axios from '../../api/axios';
@@ -108,7 +108,7 @@ export default function Login() {
    
     return (
         <>
-        <Navbar/>
+        
             {!toggle &&(<div className="row gx-0">
                 <div className="col-md-8 d-flex justify-content-center align-items-center">
                     {/* <div className="image"> */}

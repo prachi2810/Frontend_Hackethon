@@ -3,6 +3,7 @@
     background-image: url('../../Images/sideImage.png');
     background-repeat: no-repeat;
     background-size: 30% 100vh;
+    
 }
 
 .sideDiv {
@@ -98,17 +99,61 @@
 .overlapcard{
     position: relative;
     z-index: 1000;
-    top:-10%;
+    top:-30%;
     left: -10%;
 }
 
+.card{
+    width: 80%;
+    height: 200px !important;
+}
 
 .buildHeading{
     margin-left: 10%;
     
+}
+
+.behindcard{
+    background-color: #3AAFA9 !important;
 }
 .carousel-control-prev-icon,.carousel-control-next-icon{
     /* color: black; */
     background-color: #17251A;
 }
 
+.dropdown{
+    background-color: #17251A;
+    /* margin-bottom: 5%; */
+}
+
+.dropdownheading{
+    color: white;
+}
+.accordionClass{
+    
+    background-color: #17251A;
+    color: white;
+}
+
+.accordClass{
+    margin-bottom: 20%;
+}
+
+.crousalImg{
+    width: 40%;
+}
+
+.btnVal2{
+    background-color:white;
+    border: 0;
+    border-radius: 50px;
+    padding: 2%;
+    margin-top: 5%;
+    width: 30%;
+}
+
+.btnVal2:hover{
+    background-color: #17251A ;
+    color: white;
+    border: 2px solid white;
+}

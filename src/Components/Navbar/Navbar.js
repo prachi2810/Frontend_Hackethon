@@ -5,7 +5,8 @@ import { Outlet,Link } from 'react-router-dom';
 function Navbar() {
     return (
         <>
-            <nav className="navbar navbar-expand-sm navb">
+           
+            <nav className="navbar fixed-top navbar-expand-sm navbarClass">
                 <div className="container-fluid ">
                     <Link to="/Home" className='navbar-brand'>WEBIFY</Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

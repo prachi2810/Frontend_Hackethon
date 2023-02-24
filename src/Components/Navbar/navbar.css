@@ -1,7 +1,7 @@
-.navb{
-    /* background-color:rgba(250, 250, 250, 0.9); */
-    position: fixed;
-    /* z-index: 10000; */
+.navbarClass{
+    background-color:rgba(253, 253, 253, 0.9);
+    /* position: fixed; */
+    z-index: 10000;
 }
 
 .navbar-nav > li{
