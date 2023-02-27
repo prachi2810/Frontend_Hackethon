@@ -153,25 +153,96 @@ function Home() {
                           { type: 'number', units: ['px'], default: '0', property: 'y' },
                           { type: 'number', units: ['px'], default: '0', property: 'blur' },
                           { type: 'color', default: 'black', property: 'color' },
+                          {
+                            type:"file",
+                            label:"background-image",
+                            property:"background-image",
+                            functionName:"url",
+                            full:"",
+                            default:"none"
+                          },
+                          {
+                            type:"color",
+                            label:"background-color",
+                            property:"background-color",
+                            default:"none"
+                          },
+                          {
+                            type:"select",
+                            default:"scroll",
+                            label:"background-attachment",
+                            property:"background-color",
+                            options: [
+                                { id:"scroll" },
+                                { id:"fixed" },
+                                { id:"local" },                                  
+                              ]
+                          },
+
                         ]
                       },
                       {
                         name: 'Decoration',
                         open: false,
-                        buildProps: ['width', 'min-height', 'padding'],
+                        // buildProps: ['width', 'min-height', 'padding'],
                         properties: [
                             {
                                 type: 'select',
-                               label:'display',
-                                property: 'display',
+                               label:'align-content',
+                                property: 'align-content',
+                                default:"stretch",
                                 properties: [
-                                    { id:"block" },
-                                    { id:"inline" },
-                                    { id:"inline-block" },
-                                    { id:"flex" },
-                                    { id:"none" },    
+                                    { id:"flex-start" },
+                                    { id:"flex-end" },
+                                    { id:"center" },
+                                    { id:"space-between" },
+                                    { id:"space-around" },    
+                                  ],
+                                  requires:[{display:"flex"}]
+                            },
+                            {
+                                type: 'select',
+                               label:'align-items',
+                                property: 'align-items',
+                                default:"stretch",
+                                properties: [
+                                    { id:"flex-start" },
+                                    { id:"flex-end" },
+                                    { id:"center" },
+                                    { id:"baseline" },
+                                    { id:"stretch" },    
+                                  ],
+                                  requires:[{display:"flex"}]
+                            },
+                            {
+                                type: 'radio',
+                               label:'text-align',
+                               default:"left",
+                                property: 'text-align',
+                            
+                                options: [
+                                    { id:"left" },
+                                    { id:"center" },
+                                    { id:"right" },
+                                    { id:"justify" },
+                                      
                                   ]
                             },
+                            {
+                                type: 'radio',
+                               label:'position',
+                               default:"static",
+                                property: 'position',
+                                
+                                options: [
+                                    { id:"static" },
+                                    { id:"relative" },
+                                    { id:"absolute" },
+                                    { id:"fixed" },
+                                      
+                                  ]
+                            },
+                            
                             {
                                 type: 'composite',
                                 property: 'border',
@@ -196,6 +267,27 @@ function Home() {
                                   { default:"0",id:"border-bottom-left-radius-sub", property:"border-bottom-left-radius",type:"number",units:['px','%','em', 'rem', 'vh', 'vw']},
                                 ]
                               },
+                              {
+                                type: 'select',
+                               label:'display',
+                                property: 'display',
+                                properties: [
+                                    { id:"block" },
+                                    { id:"inline" },
+                                    { id:"inline-block" },
+                                    { id:"flex" },
+                                    { id:"none" },    
+                                  ]
+                            },
+                            {
+                                type: 'slider',
+                               label:'opacity',
+                                property: 'opacity',
+                                default:"1",
+                                max:1,
+                                min:0,
+                                step:0.01
+                            },
                               
                               
                         ],

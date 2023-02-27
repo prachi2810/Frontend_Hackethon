@@ -6,6 +6,8 @@ import Addpage from './Components/Addpage/Addpage';
 import Home from './Components/Home/Home';
 import Editor from './Components/Editor/Editor';
 import Login from './Components/LoginSignUp/Login';
+import "../src/Components/login/styles.css";
+import Signincomponent from './Components/login/Signincomponent';
 function App() {
   return (
     <div className="App">
@@ -15,6 +17,9 @@ function App() {
       </Route>
       <Route path="login">
          <Route index element={<Login/>}></Route>
+      </Route>
+      <Route path="login1">
+         <Route index element={<Signincomponent/>}></Route>
       </Route>
     <Route path="home">
          <Route index element={<Home/>}></Route>

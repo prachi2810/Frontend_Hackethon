@@ -13,7 +13,7 @@
     justify-content: center;
 }
 
-.button{
+.button1{
     padding: 12%;
     width: 200%;
     border-radius: 8px;
@@ -23,7 +23,7 @@
     
     
 }
-.button:hover{
+.button1:hover{
     background-color:#2B7A78 ;
 }
 .title{
