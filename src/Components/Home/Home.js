@@ -16,7 +16,6 @@ import { useNavigate } from "react-router-dom";
 function LandingPage() {
     const nav=useNavigate()
     const checkLogin=async()=>{
-        console.log('clicked')
         try{
         const result=await axios.get('http://localhost:8000/user/isLoggedIn', { withCredentials: true })
         nav('/editor')

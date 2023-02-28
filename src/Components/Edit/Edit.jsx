@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import './Editor.css';
+import './Edit.css';
 import 'grapesjs/dist/css/grapes.min.css';
 import axios from 'axios';
 import grapesjs from 'grapesjs';
 import presetWebpage from 'grapesjs-preset-webpage';
 import blocksBasic from 'grapesjs-blocks-basic';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-function Home() {
+function Edit() {
     const nav=useNavigate()
-    const [userId,setUserId]=useState(null);
   const [editor,setEditor]=useState(null);
-const savePage=async()=>{
+  const { id } = useParams();
+
+const updatePage=async()=>{
     const newHtml = editor.getHtml();
     const newStyle = editor.getStyle();
    const assets = editor.AssetManager.getAll().map(asset => asset.get('src'));
@@ -19,9 +20,8 @@ const savePage=async()=>{
       html:newHtml,
       css:newStyle,
       assets:assets,
-      userId:userId
     }
-    let newWebsite = await axios.post('http://localhost:8000/page/savePage', info)
+    let newWebsite = await axios.patch(`http://localhost:8000/page/updatePage/${id}`, info)
     console.log(newWebsite)
  }
 
@@ -29,7 +29,12 @@ const savePage=async()=>{
         const checkLogin=async()=>{
             try{
             const result=await axios.get('http://localhost:8000/user/isLoggedIn', { withCredentials: true })
-            setUserId(result.data.userId)
+            const webPage=await axios.get(`http://localhost:8000/page/getPage/${id}`)
+            if(result.data.userId!==webPage.data.userId)
+            {
+                   alert('You are not allowed to edit this page')
+                   nav('/home')
+            }
             const grapes = await grapesjs.init({
                 container: '#editor',
                 fromElement: true,
@@ -95,9 +100,13 @@ const savePage=async()=>{
                     defaults: {}
                 }
             })
-            grapes.on('load', () => {
-                grapes.setComponents({});
-              });
+            
+     grapes.setComponents(webPage.data.html);
+      grapes.addStyle(webPage.data.css);
+     const assets=webPage.data.assets
+      assets.forEach((asset) => {
+        grapes.AssetManager.add(asset);
+      });
               setEditor(grapes);
               }
             catch (err){
@@ -267,7 +276,7 @@ const savePage=async()=>{
                         <div className='panel__basic-actions'></div>
                     </div>
                 </nav> */}
-                <button className='btn btn-primary' onClick={savePage}>Save</button>
+                <button className='btn btn-primary' onClick={updatePage}>Save</button>
                 <div id='editor'></div>
                 <div
                     className='modal fade'
@@ -327,4 +336,4 @@ const savePage=async()=>{
     )
 }
 
-export default Home;
+export default Edit;

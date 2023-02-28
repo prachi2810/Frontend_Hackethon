@@ -53,7 +53,7 @@ function Login() {
     <label for="password">Password</label>
     <input type="password" class="form-control" id="password" placeholder="Password" onChange={changeValue}></input>
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary" onClick={handleSubmit}>Submit</button>
 </form>
     </div>
   )
