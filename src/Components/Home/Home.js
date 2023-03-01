@@ -10,8 +10,20 @@ import icon2 from '../../Images/Icon2.png';
 import icon3 from '../../Images/Icon3.png';
 import icon4 from '../../Images/Icon4.png';
 import Footer from '../Footer/Footer';
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 function LandingPage() {
+    const nav=useNavigate()
+    const checkLogin=async()=>{
+        try{
+        const result=await axios.get('http://localhost:8000/user/isLoggedIn', { withCredentials: true })
+        nav('/editor')
+        }
+        catch (err){
+               nav('/login')
+        }
+    }
     return (
         <>
             <Navbar />
@@ -20,7 +32,7 @@ function LandingPage() {
                     <h1 className=' mb-4 title'>Create a Website Without Limits</h1>
                     <p className='subtitle'>Create a Website with our webify website builder. No coding experience required</p>
 
-                    <Link to="/addPage"><button className='mt-2 button1'>Get Started</button></Link>
+                    <button className='mt-2 button' onClick={checkLogin}>Get Started</button>
                 </div>
                 <div className="col-md-5 d-flex align-items-center">
                     <img src={img} alt="image" width="800" className='imageClass' />
