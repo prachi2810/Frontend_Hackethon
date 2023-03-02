@@ -3,7 +3,13 @@
     background-image: url('../../Images/sideImage.png');
     background-repeat: no-repeat;
     background-size: 30% 100vh;
-    
+    position: relative;
+    top: 65px;
+}
+
+.imageClass {
+    position: relative;
+    top: -40px;
 }
 
 .sideDiv {
@@ -13,20 +19,23 @@
     justify-content: center;
 }
 
-.button1{
+.button1 {
     padding: 12%;
     width: 200%;
     border-radius: 8px;
-    background-color:#3AAFA9;
+    background-color: #3AAFA9;
     color: white;
     border: 0;
-    
-    
+
+
 }
-.button1:hover{
-    background-color:#2B7A78 ;
+
+.button1:hover {
+    background-color: #2B7A78;
+    color: white;
 }
-.title{
+
+.title {
     /* margin-left: 15%; */
     text-align: center;
     color: #1a3038;
@@ -41,35 +50,37 @@
     color: #1a3038;
 }
 
-.heading1{
+.heading1 {
     margin-top: 10%;
     margin-bottom: 5%;
     font-size: larger;
 }
 
-.top-line{
+.top-line {
     border-top: 1px solid black;
     margin-right: 3%;
 }
-.part{
+
+.part {
     margin-bottom: 10%;
 }
 
-.btnVal{
+.btnVal {
     background-color: #3AAFA9;
     border: 0;
     border-radius: 50px;
-    padding: 1%;
-    margin-top: 5%;
-    width: 20%;
+    padding: 2%;
+    /* margin-top: 5%; */
+    width: 35%;
 }
 
-.btnVal:hover{
-    background-color:#2B7A78 ;
+.btnVal:hover {
+    background-color: #2B7A78;
+    color: white;
 }
 
-.btnVal1{
-    background-color:white;
+.btnVal1 {
+    background-color: white;
     border: 0;
     border-radius: 50px;
     padding: 1%;
@@ -77,74 +88,117 @@
     width: 20%;
 }
 
-.btnVal1:hover{
-    background-color: #17251A ;
+.btnVal1:hover {
+    background-color: #17251A;
     color: white;
     border: 2px solid white;
 }
 
-.subheading{
+.btnVal3 {
+    background-color: #3AAFA9;
+    border: 0;
+    border-radius: 50px;
+    padding: 1%;
+    /* margin-top: 2%; */
+    width: 20%;
+}
+
+.btnVal3:hover {
+    background-color: #2B7A78;
+    color: white;
+}
+
+.subheading {
     margin-top: 3%;
     width: 75%;
 }
 
-.template{
+.template {
     background-color: #17251A;
     color: #fff;
     padding: 5%;
 }
-.crousal{
+
+.crousal {
     margin-top: 10%;
 }
-.overlapcard{
+
+.behindcard {
+    background-color: #3AAFA9 !important;
+}
+
+.behindcard1 {
+    background-color: #FECB22 !important;
+}
+
+.behindcard2 {
+    background-color: #3E89CC !important;
+}
+
+.behindcard3 {
+    background-color: #49cac6 !important;
+}
+
+.overlapcard {
     position: relative;
     z-index: 1000;
-    top:-30%;
+    top: -20%;
     left: -10%;
 }
 
-.card{
+.overlapcard1 {
+    position: relative;
+    z-index: 1000;
+    top: -20%;
+    right: -10%;
+}
+
+.card {
+    border-radius: 0 !important;
+    border: 0 !important;
     width: 80%;
     height: 200px !important;
 }
 
-.buildHeading{
+.buildHeading {
     margin-left: 10%;
-    
+
 }
 
-.behindcard{
-    background-color: #3AAFA9 !important;
-}
-.carousel-control-prev-icon,.carousel-control-next-icon{
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
     /* color: black; */
     background-color: #17251A;
 }
 
-.dropdown{
+.dropdown {
     background-color: #17251A;
     /* margin-bottom: 5%; */
 }
 
-.dropdownheading{
-    color: white;
-}
-.accordionClass{
-    
-    background-color: #17251A;
+.dropdownheading {
     color: white;
 }
 
-.accordClass{
-    margin-bottom: 20%;
+.accordionClass {
+    background-color: #17251A !important;
+    color: white;
 }
 
-.crousalImg{
+.accordion-button:after {
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;
+}
+
+.accordion {
+    width: 70%;
+}
+
+.crousalImg {
     width: 40%;
 }
 
-.btnVal2{
-    background-color:white;
+.btnVal2 {
+    background-color: white;
     border: 0;
     border-radius: 50px;
     padding: 2%;
@@ -152,8 +206,8 @@
     width: 30%;
 }
 
-.btnVal2:hover{
-    background-color: #17251A ;
+.btnVal2:hover {
+    background-color: #17251A;
     color: white;
     border: 2px solid white;
 }
