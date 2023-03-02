@@ -1,8 +1,21 @@
-import React from 'react';
-
+import {React,useEffect,useState} from 'react';
+import axios from 'axios';
 import './addPage.css';
+import { useNavigate, useParams } from "react-router-dom";
+import { async } from 'q';
 
 function Addpage() {
+
+    const[allPage,setAllPages]=useState(null);
+    const [idPage,setId]=useState(null);
+    const {id}=useParams();
+    useEffect(async()=>{
+            const response= await axios.get(`http://localhost:8000/page/allPages/${id}`, { withCredentials: true })
+            console.log(response.data)
+            console.log(response.data[0]._id);
+            setAllPages(response.data)
+    },[])
+
     return (
         <>
             <div className="container">
@@ -73,29 +86,34 @@ function Addpage() {
                     </div>
                 </div>
 
-
-                <div className='shadow content'>
-                    <div className='row'>
-                        <div className='col-md-2'>
-                            <h6>Home Page</h6>
-                        </div>
-                        <div className="col-md-2">
-                            <h6>17 Feb</h6>
-                        </div>
-                        <div className="col-md-2">
-                            <h6>Primary</h6>
-                        </div>
-                        <div className="col-md-2">
-                            <h6><i class="bi bi-pencil-square"></i></h6>
-                        </div>
-                        <div className="col-md-2">
-                            <i class="bi bi-trash-fill"></i>
-                        </div>
-                        <div className="col-md-2">
-                            <i class="bi bi-eye-fill"></i>
-                        </div>
-                    </div>
-                </div>
+               { allPage && allPage.map((page)=>{
+                
+                return (
+            <div className='shadow content'>
+               <div className='row'>
+                   <div className='col-md-2'>
+                       <h6>{page.name}</h6>
+                   </div>
+                   <div className="col-md-2">
+                       <h6>17 Feb</h6>
+                   </div>
+                   <div className="col-md-2">
+                       <h6>Primary</h6>
+                   </div>
+                   <div className="col-md-2">
+                       <h6><i class="bi bi-pencil-square"></i></h6>
+                   </div>
+                   <div className="col-md-2">
+                       <i class="bi bi-trash-fill"></i>
+                   </div>
+                   <div className="col-md-2">
+                       <i class="bi bi-eye-fill"></i>
+                   </div>
+               </div>
+           </div>)
+               })
+                
+}
             </div >
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
