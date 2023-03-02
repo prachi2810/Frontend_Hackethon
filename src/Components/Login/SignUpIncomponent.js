@@ -1,24 +1,47 @@
-import { React, useState } from 'react';
+import { React, useState ,useEffect} from 'react';
 import "../Login/SignUpIn.css";
 import axios from 'axios'
 import jwt_decode from 'jwt-decode';
 import { useNavigate } from "react-router-dom";
-import google from "../../Images/googleicon.png";
+import googleImg from "../../Images/googleicon.png";
+const google = window.google;
 const defaultReg={
     username:'',
     email:'',
     password:''
 }
 function SignUpIncomponent() {
+
+
+    const [ user, setUser ] = useState({});
+
+
     const [signIn, setsignIn] = useState(true);
     const [fPass, setfPass] = useState(false);
     const [toggle, setToggle] = useState(false);
     const nav = useNavigate();
 
+
     const [username, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const[Reg,setReg]=useState(defaultReg);
     
+
+
+    
+  function handleCallbackResponse (response){
+
+    console.log("JWT token: "+ response.credential);
+
+    var userObject = jwt_decode(response.credential);
+
+    console.log(userObject);
+
+    setUser(userObject);
+
+ 
+
+  }
     const changeValue = (e) => {
         switch (e.target.id) {
             case 'userName': {
@@ -43,7 +66,6 @@ function SignUpIncomponent() {
                 {
                     withCredentials: true,
                     headers: { 'Content-Type': 'application/json' }
-
                 })
             console.log(response)
             nav('/')
@@ -52,28 +74,10 @@ function SignUpIncomponent() {
             console.log(err)
         }
     }
-    // const changeValueReg=(e)=>{
-    //     switch(e.target.id)
-    //     {
-    //      case 'userName':{
-    //        setUserNameReg(e.target.value)
-    //        break;
-    //      };
-    //      case 'email':{
-    //        setEmailReg(e.target.value)
-    //        break
-    //      };
-    //      case 'password':{
-    //        setPasswordReg(e.target.value)
-    //        break
-    //      }
-    //     }
-    //  }
+  
      const handleSubmitReg=async(e)=>{
        e.preventDefault();
-    //    const userData={
-    //      usernameReg,emailReg,passwordReg
-    //    }
+  
                 try{
                       const response=await axios.post('http://localhost:8000/user/register',
                       JSON.stringify(Reg),
@@ -88,6 +92,29 @@ function SignUpIncomponent() {
                   console.log(err)
                  }
      }
+
+     useEffect(() => {
+
+        google.accounts.id.initialize({
+    
+          client_id: "998114193402-aifjqje7nrbi5m1s3b8kflesuvnkcunl.apps.googleusercontent.com",
+    
+          callback: handleCallbackResponse
+    
+        });
+    
+     
+    
+        google.accounts.id.renderButton(
+    
+          document.getElementById("signInDiv"),
+    
+          { theme: "outline", size: "large" }
+    
+        );
+    
+      }, []);
+    
     return (
         <>
             <div className='row d-flex justify-content-center align-items-center'>
@@ -99,9 +126,10 @@ function SignUpIncomponent() {
                                 <div className='d-flex justify-content-center align-items-center'>
                                     <span className='hLine'></span>
                                 </div>
-                                <div className='imageicon'>
-                                    <img src={google} className='gicon' alt="google" />
-                                </div>
+                                {/* <div className='imageicon'>
+                                    <img src={googleImg} className='gicon' alt="google" />
+                                </div> */}
+                                <div id="signInDiv"></div>
                                 <p className='Paragraph'>--or use your email account--</p>
                                 <div class="mb-3">
 

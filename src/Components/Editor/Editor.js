@@ -8,6 +8,7 @@ import blocksBasic from 'grapesjs-blocks-basic';
 import { useNavigate } from "react-router-dom";
 import save from '../../Images/saveicon.png';
 import { useParams,Link } from 'react-router-dom';
+
 function Editor() {
     const nav = useNavigate()
     const [userId, setUserId] = useState(null);
