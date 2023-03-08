@@ -7,15 +7,21 @@ import presetWebpage from 'grapesjs-preset-webpage';
 import blocksBasic from 'grapesjs-blocks-basic';
 import { useNavigate } from "react-router-dom";
 import save from '../../Images/saveicon.png';
-import { useParams,Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 function Editor() {
     const nav = useNavigate()
     const [userId, setUserId] = useState(null);
     const [editor, setEditor] = useState(null);
-    const [name, setName]=useState('');
-    const [domain, setDomain]=useState('');
-    const {id}=useParams();
+    const [name, setName] = useState('');
+    const [domain, setDomain] = useState('');
+    const [Id,setId]=useState(0);
+    const { id } = useParams();
+
+    const notifySave = () => toast.success("Successfully Saved");
+    const notifyLogin = () => toast.success("Successfully Logged In");
+
     const savePage = async () => {
         const newHtml = editor.getHtml();
         const newStyle = editor.getStyle();
@@ -29,7 +35,8 @@ function Editor() {
             domain
         }
         let newWebsite = await axios.post('http://localhost:8000/page/savePage', info)
-        console.log(newWebsite)
+        console.log(newWebsite);
+
     }
 
     useEffect(() => {
@@ -402,6 +409,7 @@ function Editor() {
                     grapes.setComponents({});
                 });
                 setEditor(grapes);
+                setId(result.data.userId);
             }
             catch (err) {
                 console.log(err)
@@ -572,6 +580,7 @@ function Editor() {
                 </nav> */}
                 <div id='editor'></div>
                 <button className='savebtn' data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Save<img src={save} width="25" alt="save" /></button>
+                <ToastContainer />
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -583,16 +592,17 @@ function Editor() {
                                 <form>
                                     <div class="mb-3">
                                         <label for="recipient-name" class="col-form-label">Title:</label>
-                                        <input type="text" class="form-control" id="recipient-name" onChange={(e)=>setName(e.target.value)} />
+                                        <input type="text" class="form-control" id="recipient-name" onChange={(e) => setName(e.target.value)} />
                                         <label for="recipient-name" class="col-form-label">Domain:</label>
-                                        <input type="text" class="form-control" id="recipient-name" onChange={(e)=>setDomain(e.target.value)} />
+                                        <input type="text" class="form-control" id="recipient-name" onChange={(e) => setDomain(e.target.value)} />
                                     </div>
 
                                 </form>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary"  onClick={savePage}>Save</button>
+                                <button type="button" class="btn btn-primary"  onClick={() => {savePage();notifySave()}} data-bs-dismiss="modal">Save</button>
+                                
                             </div>
                         </div>
                     </div>
@@ -602,7 +612,7 @@ function Editor() {
                         <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle" />
                     </a>
                     <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                        <li><Link to={`/addPage/${id}`}><a class="dropdown-item" href="#">All Pages</a></Link></li>
+                        <li><Link to={`/allPages/${Id}`}><a class="dropdown-item" href="#">All Pages</a></Link></li>
                         {/* <li><a class="dropdown-item" href="#">Settings</a></li> */}
                         <li><a class="dropdown-item" href="#">Profile</a></li>
                         <li><hr class="dropdown-divider" /></li>
@@ -655,7 +665,7 @@ function Editor() {
                                     >
                                         Close
                                     </button>
-                                    <button type='submit' className='btn btn-primary btn-sm'>
+                                    <button type='submit' className='btn btn-primary btn-sm' data-bs-dismiss='modal'>
                                         Save
                                     </button>
                                 </div>

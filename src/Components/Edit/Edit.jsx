@@ -5,6 +5,7 @@ import axios from 'axios';
 import grapesjs from 'grapesjs';
 import presetWebpage from 'grapesjs-preset-webpage';
 import blocksBasic from 'grapesjs-blocks-basic';
+import save from '../../Images/saveicon.png';
 import { useNavigate, useParams } from "react-router-dom";
 
 function Edit() {
@@ -571,8 +572,10 @@ const updatePage=async()=>{
                         <div className='panel__basic-actions'></div>
                     </div>
                 </nav> */}
-                <button className='btn btn-primary' onClick={updatePage}>Save</button>
+                {/* <div id='editor'></div> */}
+                {/* <button className='btn btn-primary' >Save</button> */}
                 <div id='editor'></div>
+                <button className='savebtn' data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" onClick={updatePage}>Save<img src={save} width="25" alt="save" /></button>
                 <div
                     className='modal fade'
                     id='addPageModal'

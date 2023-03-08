@@ -1,27 +1,31 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import "../Login/SignUpIn.css";
 import axios from 'axios'
 import jwt_decode from 'jwt-decode';
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
 
 import google from "../../Images/googleicon.png";
 
-const defaultReg={
-    username:'',
-    email:'',
-    password:''
+const defaultReg = {
+    username: '',
+    email: '',
+    password: ''
 }
 
 function SignUpIncomponent() {
     const [signIn, setsignIn] = useState(true);
     const [fPass, setfPass] = useState(false);
     const [toggle, setToggle] = useState(false);
+    // const [toastReg, settoastReg] = useState(false);
     const nav = useNavigate();
 
     const [username, setUserName] = useState('');
     const [password, setPassword] = useState('');
-    const[Reg,setReg]=useState(defaultReg);
-    
+    const [Reg, setReg] = useState(defaultReg);
+
+    const notifyReg = () => toast.success("Successfully Register");
+    const notifyLogin=()=>toast.success("Successfully Logged In");
     const changeValue = (e) => {
         switch (e.target.id) {
             case 'userName': {
@@ -49,51 +53,38 @@ function SignUpIncomponent() {
 
                 })
             console.log(response)
-            nav('/')
+            
+            // settoastReg(true);
+            nav('/editor')
         }
         catch (err) {
             console.log(err)
         }
     }
-    // const changeValueReg=(e)=>{
-    //     switch(e.target.id)
-    //     {
-    //      case 'userName':{
-    //        setUserNameReg(e.target.value)
-    //        break;
-    //      };
-    //      case 'email':{
-    //        setEmailReg(e.target.value)
-    //        break
-    //      };
-    //      case 'password':{
-    //        setPasswordReg(e.target.value)
-    //        break
-    //      }
-    //     }
-    //  }
-     const handleSubmitReg=async(e)=>{
-       e.preventDefault();
-    //    const userData={
-    //      usernameReg,emailReg,passwordReg
-    //    }
-                try{
-                      const response=await axios.post('http://localhost:8000/user/register',
-                      JSON.stringify(Reg),
-                      {
-                       headers: { 'Content-Type': 'application/json' },
-                      // withCredentials: true
-                      })
-                      setReg(defaultReg)
-                  console.log(response);
-               }
-               catch (err) {
-                  console.log(err)
-                 }
-     }
+
+    const handleSubmitReg = async (e) => {
+        e.preventDefault();
+        //    const userData={
+        //      usernameReg,emailReg,passwordReg
+        //    }
+        try {
+            const response = await axios.post('http://localhost:8000/user/register',
+                JSON.stringify(Reg),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    // withCredentials: true
+                })
+            setReg(defaultReg)
+            console.log(response);
+            // settoastReg(true);
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
     return (
         <>
-            <div className='row d-flex justify-content-center align-items-center'>
+            <div className='row d-flex justify-content-center align-items-center rowClass'>
                 {!fPass && !signIn && (
                     <>
                         <div className='col-md-8 d-flex justify-content-center align-items-center SignUpContainer'>
@@ -108,21 +99,24 @@ function SignUpIncomponent() {
                                 <p className='Paragraph'>--or use your email account--</p>
                                 <div class="mb-3">
 
-                                    <input id="username" className='Input' type="text" placeholder='Username' onChange={(e)=>setReg({...Reg,username:e.target.value})} />
+                                    <input id="username" className='Input' type="text" placeholder='Username' onChange={(e) => setReg({ ...Reg, username: e.target.value })} />
                                 </div>
                                 <div className='mb-3'>
 
-                                    <input id="email" className='Input' type="email" placeholder='Email' onChange={(e)=>setReg({...Reg,email:e.target.value})} />
+                                    <input id="email" className='Input' type="email" placeholder='Email' onChange={(e) => setReg({ ...Reg, email: e.target.value })} />
                                 </div>
                                 <div className='mb-3'>
 
-                                    <input id="password" className='Input' type="password" placeholder='Password' onChange={(e)=>setReg({...Reg,password:e.target.value})} />
+                                    <input id="password" className='Input' type="password" placeholder='Password' onChange={(e) => setReg({ ...Reg, password: e.target.value })} />
                                 </div>
                                 <div className='d-flex justify-content-center align-items-center'>
-                                    <button className='Button'>Sign Up</button>
+                                    <button className='Button' onClick={notifyReg}>Sign Up</button>
+                                    {/* <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> */}
+                                    <ToastContainer />
                                 </div>
                             </form>
                         </div>
+
                         <div className='col-md-4 d-flex justify-content-center align-items-center backColor'>
 
                             <div className="LeftOverlayPanel">
@@ -179,7 +173,8 @@ function SignUpIncomponent() {
                                     <a href='#' className='Anchor' onClick={() => setfPass(true)}>Forgot Your Password?</a>
                                 </div>
                                 <div className='d-flex justify-content-center align-items-center'>
-                                    <button type="submit" className='Button' onClick={handleSubmit}>Sign In</button>
+                                    <button type="submit" className='Button' onClick={()=>{handleSubmit();notifyLogin()}}>Sign In</button>
+                                    <ToastContainer />
                                 </div>
                             </form>
                         </div>
@@ -208,7 +203,6 @@ function SignUpIncomponent() {
 
                 </>
                 )}
-
             </div>
         </>
     )

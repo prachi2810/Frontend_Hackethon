@@ -1,6 +1,6 @@
 .navbarClass{
     background-color:rgba(253, 253, 253, 0.6);
-   
+    /* height: 100px; */
 }
 
  .navbar-nav > li{
@@ -19,6 +19,27 @@
     background-color: rgba(240, 240, 240);
 }
 
+.rightAlign{
+  display: flex;
+  align-items: flex-end;
+  justify-content: end;
+}
+
+.nav-login{
+  margin-top: 400px;
+}
+
+
+@media screen and (max-width:600px) {
+  .navbarClass{
+    background-color:rgba(253, 253, 253);
+  }
+  .rightAlign{
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+  }
+}
 /* .drop{
     align-items: flex-end;
 }  */

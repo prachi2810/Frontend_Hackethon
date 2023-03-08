@@ -1,4 +1,4 @@
-.buttonVal{
+.buttonValPage{
     margin-left: 70%;
     margin-top: 3%;
     margin-bottom: 3%;
@@ -9,7 +9,7 @@
     border:0;
     color: white;
 }
-.buttonVal:hover{
+.buttonValPage:hover{
        /* background-color:#3AAFA9 ; */
        background-color:#2B7A78 ;
 }
@@ -22,17 +22,20 @@
     border: 0;
 }
 
-.title1{
-    margin-top: 3%;
-    margin-bottom: 8%;
+.titlePage{
+    top: 5%;
+    margin-bottom: 5%;
     font-family: serif;
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
 }
 
-.searchbar {
+.searchbarPage {
     max-width: 50%;
 }
 
-.header{
+.headerPage{
     margin-top: 5%;
     background-color: aliceblue;
     border-radius: 10px;
@@ -41,7 +44,7 @@
     padding-bottom: 1%;
     color: gray;
 }
-.content{
+.contentPage{
     margin-top: 1%;
     background-color: rgb(242, 245, 248);
     border: 2px black;
@@ -49,13 +52,18 @@
     padding-left: 5%;
     padding-top: 1%;
     padding-bottom: 1%;
-
+    /* margin-bottom: 5%; */
     color: black;
 }
 
-.name{
+.namePage{
     margin-left: 50%;
 }
-.name1{
+.name1Page{
     margin-right: 80%;
+}
+
+.deleteBut{
+    border: 0;
+    color:rgb(20, 170, 230);
 }

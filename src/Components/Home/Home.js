@@ -27,9 +27,9 @@ function LandingPage() {
     return (
         <>
             <Navbar />
-            <div className='row sideImage'>
+            <div className='row sideImage mt-5 '>
                 <div className="col-md-5 d-flex sideDiv">
-                    <h1 className=' mb-4 title'>Create a Website Without Limits</h1>
+                    <h1 className='mb-4 mt-4 title'>Create a Website Without Limits</h1>
                     <p className='subtitle'>Create a Website with our webify website builder. No coding experience required</p>
                     <button className='btnVal' onClick={checkLogin}>Get Started</button>
                 </div>
@@ -38,14 +38,13 @@ function LandingPage() {
                 </div>
             </div>
             <div className='container'>
-                <div className='heading1'>
+                <div className='headingHome'>
                     <h1>One platform,<br />infinite possibilities</h1>
                 </div>
-            </div>
-            <div className='container part'>
-                <div className='row d-flex justify-content-center'>
+
+                <div className='row d-flex justify-content-center threeStyle'>
                     <div className='col-md-3 top-line'>
-                        <h4 className='mt-4'>
+                        <h4 className='mt-3 threeCol'>
                             Unlimited creation
                         </h4>
                         <p className='mt-3'>
@@ -53,24 +52,25 @@ function LandingPage() {
                         </p>
                     </div>
                     <div className='col-md-3 top-line'>
-                        <h4 className='mt-4'>
+                        <h4 className='mt-4 threeCol'>
                             Powerful infrastructure
                         </h4>
-                        <p className='mt-3'>
+                        <p className='mt-md-3'>
                             Get an enterprise-grade foundation, engineered for your limitless scalability and peace of mind.
                         </p>
                     </div>
                     <div className='col-md-3 top-line'>
-                        <h4 className='mt-4'>
+                        <h4 className='mt-4 threeCol'>
                             The place for growth
                         </h4>
                         <p className='mt-3'>
                             Convert and scale seamlessly with built-in marketing and business solutions.
                         </p>
                     </div>
-
                 </div>
-                <button className='btnVal3' onClick={checkLogin}>Get Started</button>
+                <div className='btnVal3-div'>
+                        <button className='btnVal3' onClick={checkLogin}>Get Started</button>
+                </div>
             </div>
             <div className='template text-center'>
                 <div className='d-flex justify-content-center'>
@@ -107,13 +107,11 @@ function LandingPage() {
                     </div>
                 </div>
             </div>
-            <div>
-                <div className='d-flex justify-content-center'>
+            <div className='d-flex extraClass'>
+                <div className='container d-flex justify-content-center flex-column'>
                     <h1 className='mt-5 mb-5'>All You Need And More</h1>
-                </div>
-                <div className='container'>
-                    <div className="row">
-                        <div className="col-md-3 mt-5">
+                    <div className="row cardRow">
+                        <div className="col-md-3 mt-5 cardClass">
                             <div class="card behindcard">
                                 <div class="card-body">
                                     <img src={icon1} width="60" alt="icon" />
@@ -127,7 +125,7 @@ function LandingPage() {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-3">
+                        <div className="col-md-3 mt-5">
                             <div class="card behindcard1">
                                 <div class="card-body">
                                     <img src={icon2} width="50" alt="icon" />
@@ -155,7 +153,7 @@ function LandingPage() {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-3">
+                        <div className="col-md-3 mt-5">
                             <div class="card behindcard3">
                                 <div class="card-body">
                                     <img src={icon4} width="50" alt="icon" />
@@ -170,73 +168,77 @@ function LandingPage() {
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div className='dropdown'>
-                <div className='container'>
-                    <div className='row mb-5 pb-5'>
-                        <div className='col-md-6'>
-                            <h1 className='dropdownheading mt-5 mb-5'>Build your own website in a few steps</h1>
-                            <h6 className='dropdownheading'>Start your business website today, no credit card required.</h6>
-                            <button className='btnVal2'>Get Started</button>
-                        </div>
-                        <div className='col-md-6 mt-5 d-flex justify-content-center'>
-                            <div class="accordion accordion-flush" id="accordionFlushExample">
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="flush-headingOne">
-                                        <button class="accordion-button collapsed text-light accordionClass" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                            1. Plan your business
-                                        </button>
-                                    </h2>
-                                    <div id="flush-collapseOne" class="accordionClass accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body">Narrow down your niche or area of interest for your website.
-                                            Browse through the Domain Name Generator to help you find an available domain name you love.
-                                            Check out the various tools, themes,
-                                            and resources Shopify offers to help excite you about your entrepreneurial journey.</div>
+
+                <div className='dropdownacc'>
+                    <div className='container'>
+                        <div className='row mb-5 pb-5'>
+                            <div className='col-md-6'>
+                                <h1 className='dropdownheading mt-5 mb-5'>Build your own website in a few steps</h1>
+                                <h6 className='dropdownheading'>Start your business website today, no credit card required.</h6>
+                                <button className='btnVal2'>Get Started</button>
+                            </div>
+                            <div className='col-md-6 mt-5 d-flex justify-content-center'>
+                                <div class="accordion accordion-flush" id="accordionFlushExample">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="flush-headingOne">
+                                            <button class="accordion-button collapsed text-light accordionClass" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                                1. Plan your business
+                                            </button>
+                                        </h2>
+                                        <div id="flush-collapseOne" class="accordionClass accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                            <div class="accordion-body">Narrow down your niche or area of interest for your website.
+                                                Browse through the Domain Name Generator to help you find an available domain name you love.
+                                                Check out the various tools, themes,
+                                                and resources Shopify offers to help excite you about your entrepreneurial journey.</div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="flush-headingTwo">
-                                        <button class="accordion-button collapsed text-light accordionClass" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                                            2. Pick your platform
-                                        </button>
-                                    </h2>
-                                    <div id="flush-collapseTwo" class="accordion-collapse collapse accordionClass" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body">Webify is a website builder for commerce.
-                                            Build an online or offline store using Shopify’s easy drag-and-drop no code website builder.
-                                            Shopify offers reliable website hosting,
-                                            domain name registration, countless tools, apps, stock photos, help resources, and so much more.</div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="flush-headingTwo">
+                                            <button class="accordion-button collapsed text-light accordionClass" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                                2. Pick your platform
+                                            </button>
+                                        </h2>
+                                        <div id="flush-collapseTwo" class="accordion-collapse collapse accordionClass" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                            <div class="accordion-body">Webify is a website builder for commerce.
+                                                Build an online or offline store using Shopify’s easy drag-and-drop no code website builder.
+                                                Shopify offers reliable website hosting,
+                                                domain name registration, countless tools, apps, stock photos, help resources, and so much more.</div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="flush-headingThree">
-                                        <button class="accordion-button collapsed text-light accordionClass" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                                            3. Customize your website
-                                        </button>
-                                    </h2>
-                                    <div id="flush-collapseThree" class="accordion-collapse collapse accordionClass" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body">Make your own website, your way.
-                                            Customize images, copy, themes, layouts, apps, and more. Add your own unique products to your website and create enticing descriptions for them. You can brand your website in so many ways using Shopify’s website builder.
-                                            You don’t need coding skills to create a website that stands out online and offline.</div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="flush-headingThree">
+                                            <button class="accordion-button collapsed text-light accordionClass" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                                                3. Customize your website
+                                            </button>
+                                        </h2>
+                                        <div id="flush-collapseThree" class="accordion-collapse collapse accordionClass" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                                            <div class="accordion-body">Make your own website, your way.
+                                                Customize images, copy, themes, layouts, apps, and more. Add your own unique products to your website and create enticing descriptions for them. You can brand your website in so many ways using Shopify’s website builder.
+                                                You don’t need coding skills to create a website that stands out online and offline.</div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="flush-headingFour">
-                                        <button class="accordion-button collapsed text-light accordionClass" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-                                            4. Launch your store
-                                        </button>
-                                    </h2>
-                                    <div id="flush-collapseFour" class="accordion-collapse collapse accordionClass" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body">Now that your website is ready to go, you can launch your website publicly.
-                                            You can market your website and products by promoting on various social media channels, optimize your store for search engines with SEO, and other popular marketing strategies.
-                                            Easily extend your capabilities by installing apps, sales channels.</div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="flush-headingFour">
+                                            <button class="accordion-button collapsed text-light accordionClass" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                                                4. Launch your store
+                                            </button>
+                                        </h2>
+                                        <div id="flush-collapseFour" class="accordion-collapse collapse accordionClass" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+                                            <div class="accordion-body">Now that your website is ready to go, you can launch your website publicly.
+                                                You can market your website and products by promoting on various social media channels, optimize your store for search engines with SEO, and other popular marketing strategies.
+                                                Easily extend your capabilities by installing apps, sales channels.</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
+
+
             <Footer />
         </>
     )

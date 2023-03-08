@@ -1,18 +1,19 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
-.row{
+
+.rowClass {
     height: 100vh;
 }
 
 .SignUpContainer {
-    
+
     top: 0;
     height: 100%;
     transition: all 0.6s ease-in-out;
     left: 0;
     width: 50%;
-    
 
-} 
+
+}
 
 /* .formStyle {
     background-color: #ffffff;
@@ -26,7 +27,7 @@
     border:0;
 } */
 
- .TitleLogin {
+.TitleLogin {
     font-weight: bold;
     margin: 0;
 
@@ -40,7 +41,7 @@
     width: 100%;
 }
 
- .Button {
+.Button {
     border-radius: 20px;
     border: 1px solid #3AAFA9;
     background-color: #3AAFA9;
@@ -82,17 +83,18 @@
     color: #333;
     font-size: 14px;
     text-decoration: none;
-    margin: 15px 0; 
-} 
- 
+    margin: 15px 0;
+}
 
-.backColor{
+
+.backColor {
     background: -webkit-linear-gradient(to right, #DEF2F1, #31817d);
     background: linear-gradient(to right, #96f0eb, #3dafa9);
-   height: 100%;
-   color: white;
-   
+    height: 100%;
+    color: white;
+
 }
+
 /* .hLine{
    width: 40%;
    margin: 0 auto;
@@ -101,14 +103,15 @@
    height: 10px;
    border-radius:100%;
 } */
-.hLine1{
+.hLine1 {
     height: 5px;
     width: 55px;
-    background-color:white;
+    background-color: white;
     border-radius: 100px;
     margin: 0 20px;
     margin-top: 10%;
- }
+}
+
 .hLine {
     height: 5px;
     width: 55px;
@@ -117,22 +120,23 @@
     margin: 0 20px;
 }
 
-.gicon{
+.gicon {
     /* border: 3px solid black ; */
     border-radius: 90%;
     margin-top: 5%;
     margin-bottom: 5%;
     width: 13%;
 }
-.imageicon{
-    display: flex; 
+
+.imageicon {
+    display: flex;
     align-items: center;
     justify-content: center;
 }
 
 
 .LeftOverlayPanel {
-     position: absolute;
+    position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -149,7 +153,7 @@
 }
 
 .RightOverlayPanel {
-     position: absolute;
+    position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -158,7 +162,7 @@
     text-align: center;
     top: 0;
     height: 100%;
-    width: 50%; 
+    width: 50%;
     /* transform: translateX(0); */
     /* transition: transform 0.6s ease-in-out; */
     /* right: 0;  */
@@ -174,4 +178,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
-} 
+}
+
+@media screen and (max-width:600px) {
+    .rowClass {
+        height: 50vh;
+    }
+
+    .RightOverlayPanel {
+       top:-25%;
+    }
+
+    .LeftOverlayPanel {
+        top:70%;
+        height:auto;
+    }
+    .SignUpContainer{
+        height: auto;
+    }
+}
