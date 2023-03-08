@@ -1,25 +1,36 @@
 import { React, useState } from 'react';
 import './navbar.css';
-import { Outlet, Link,useParams } from 'react-router-dom';
+import { Outlet, Link,useParams,useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect } from 'react';
 
 function Navbar() {
     const [isLogin, setLogin] = useState(false);
     const {id}=useParams();
+    const navigate=useNavigate();
     const checkLogin = async () => {
         try {
             const result = await axios.get('http://localhost:8000/user/isLoggedIn', { withCredentials: true })
-            // nav('/editor')
             setLogin(true);
         }
         catch (err) {
-            //    nav('/login')
             setLogin(false);
         }
     }
+    const logout=async()=>{
+        try{
+            const response=await axios.get('http://localhost:8000/user/logout',{withCredentials:true});
+            if(window.location.pathname!=='/')
+            navigate('/')
+            else{
+                window.location.reload();
+            }
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
     useEffect(() => {
-        
         checkLogin();
     }, [])
     return (
@@ -47,7 +58,7 @@ function Navbar() {
                                     <li><Link to={`/addPage/${id}`}><a class="dropdown-item" href="#">All Pages</a></Link></li>
                                     <li><a class="dropdown-item" href="#">Profile</a></li>
                                     <li><hr class="dropdown-divider"/></li>
-                                    <li><a class="dropdown-item" href="#">Sign Out</a></li>
+                                    <li><a class="dropdown-item"  onClick={logout}>Log Out</a></li>
                                 </ul>
                             </li>:<li className="nav-item">
                                     <Link to="/login"><a className="nav-link" href="#">SignUp/Login</a></Link>

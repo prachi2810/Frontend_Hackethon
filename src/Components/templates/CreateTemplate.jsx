@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './Editor.css';
+import './CreateTemplate.css';
 import 'grapesjs/dist/css/grapes.min.css';
 import axios from 'axios';
 import grapesjs from 'grapesjs';
@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 import save from '../../Images/saveicon.png';
 import { useParams,Link } from 'react-router-dom';
 import tabsPlugin from  'grapesjs-tabs'
+import { TagsInput } from "react-tag-input-component";
+
 
 function Editor() {
     const nav = useNavigate()
@@ -17,21 +19,26 @@ function Editor() {
     const [editor, setEditor] = useState(null);
     const [name, setName]=useState('');
     const [domain, setDomain]=useState('');
+    const[thumbNail,setThumbnail]=useState(null);
     const {id}=useParams();
-    const savePage = async () => {
-        const newHtml = editor.getHtml();
-        const newStyle = editor.getStyle();
+    const savePage = async (e) => {
+      e.preventDefault()
+        const html = editor.getHtml();
+        const css = editor.getStyle();
         const assets = editor.AssetManager.getAll().map(asset => asset.get('src'));
-        const info = {
-            html: newHtml,
-            css: newStyle,
-            assets: assets,
-            userId: userId,
-            name,
-            domain,
 
-        }
-        let newWebsite = await axios.post('http://localhost:8000/page/savePage', info)
+        const formData=new FormData();
+        formData.append('html',html);
+        formData.append('css',css);
+        formData.append('assets',assets);
+        formData.append('name',name);
+        formData.append('domain',domain);
+        formData.append('userId',userId);
+        formData.append('thumbnail',thumbNail)
+        
+        let newWebsite = await axios.post('http://localhost:8000/templates/saveTemplate', formData,{
+          headers: { 'Content-Type': 'multipart/form-data' }
+        })
         console.log(newWebsite)
     }
 
@@ -343,20 +350,6 @@ function Editor() {
         checkLogin();
     }, [])
 
-    
-    const logout=async()=>{
-      try{
-          const response=await axios.get('http://localhost:8000/user/logout',{withCredentials:true});
-          if(window.location.pathname!=='/')
-          nav('/')
-          else{
-              window.location.reload();
-          }
-      }
-      catch(err){
-          console.log(err)
-      }
-  }
     return (
         <>
             <div id='navbar' className='sidenav d-flex flex-column overflow-scroll'>
@@ -528,8 +521,11 @@ function Editor() {
                                     <div class="mb-3">
                                         <label for="recipient-name" class="col-form-label">Title:</label>
                                         <input type="text" class="form-control" id="recipient-name" onChange={(e)=>setName(e.target.value)} />
-                                        <label for="recipient-name" class="col-form-label">Domain:</label>
-                                        <input type="text" class="form-control" id="recipient-name" onChange={(e)=>setDomain(e.target.value)} />
+                                        <label for="tags" class="col-form-label">Tags:</label>
+                                        <TagsInput  id='tags'  name="tags"  placeHolder="Add Tags"/>
+                                        <em>press enter to add new tag</em><br></br>
+                                        <label for="recipient-name" class="col-form-label">Add Thumbnail</label><br></br>
+                                        <input type="file" onChange={(e)=>{console.log(e.target.files[0]); setThumbnail(e.target.files[0])}}></input>
                                     </div>
 
                                 </form>
@@ -550,7 +546,7 @@ function Editor() {
                         {/* <li><a class="dropdown-item" href="#">Settings</a></li> */}
                         <li><a class="dropdown-item" href="#">Profile</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" onClick={logout} >Log out</a></li>
+                        <li><a class="dropdown-item" href="#">Sign out</a></li>
                     </ul>
                 </div>
 
@@ -600,7 +596,7 @@ function Editor() {
                                         Close
                                     </button>
                                     <button type='submit' className='btn btn-primary btn-sm'>
-                                        Save
+                                        
                                     </button>
                                 </div>
                             </form>

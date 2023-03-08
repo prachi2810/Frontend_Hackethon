@@ -4,24 +4,19 @@ import axios from 'axios'
 import jwt_decode from 'jwt-decode';
 import { useNavigate } from "react-router-dom";
 import googleImg from "../../Images/googleicon.png";
-const google = window.google;
 const defaultReg={
     username:'',
     email:'',
     password:''
 }
 function SignUpIncomponent() {
-
-
     const [ user, setUser ] = useState({});
-
-
     const [signIn, setsignIn] = useState(true);
     const [fPass, setfPass] = useState(false);
     const [toggle, setToggle] = useState(false);
     const nav = useNavigate();
-
-
+    const google = window.google;
+    const[loaded,setLoaded]=useState(false)
     const [username, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const[Reg,setReg]=useState(defaultReg);
@@ -29,16 +24,50 @@ function SignUpIncomponent() {
 
 
     
-  function handleCallbackResponse (response){
-
-    console.log("JWT token: "+ response.credential);
-
+  async function handleCallbackResponse (response){
     var userObject = jwt_decode(response.credential);
-
     console.log(userObject);
+    if(!signIn)
+    {
+        const userData={
+            username:userObject.email,
+            email:userObject.email,
+        }
+        try{
+              const response=await axios.post('http://localhost:8000/user/registerByGoogle',
+              JSON.stringify(userData),
+              {
+               headers: { 'Content-Type': 'application/json' },
+              })
+              console.log(response)
+       }
+       catch (err) {
+          console.log(err)
+         }
+     axios.post('');
 
     setUser(userObject);
+    }
+    else{
+        
 
+        const userData = {
+            username:userObject.email, token:response.credential
+        }
+        try {
+            const response = await axios.post('http://localhost:8000/user/loginByGoogle',
+                JSON.stringify(userData),
+                {
+                    withCredentials: true,
+                    headers: { 'Content-Type': 'application/json' }
+                })
+            console.log(response)
+            nav('/')
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
  
 
   }
@@ -77,46 +106,38 @@ function SignUpIncomponent() {
   
      const handleSubmitReg=async(e)=>{
        e.preventDefault();
-  
                 try{
                       const response=await axios.post('http://localhost:8000/user/register',
                       JSON.stringify(Reg),
                       {
                        headers: { 'Content-Type': 'application/json' },
-                      // withCredentials: true
                       })
                       setReg(defaultReg)
-                  console.log(response);
                }
                catch (err) {
                   console.log(err)
                  }
      }
 
+ 
      useEffect(() => {
-
         google.accounts.id.initialize({
-    
           client_id: "998114193402-aifjqje7nrbi5m1s3b8kflesuvnkcunl.apps.googleusercontent.com",
-    
           callback: handleCallbackResponse
-    
         });
-    
-     
-    
         google.accounts.id.renderButton(
-    
+
           document.getElementById("signInDiv"),
     
-          { theme: "outline", size: "large" }
+          { theme: "filled_blue", size: "large",shape:"pill" }
     
         );
     
-      }, []);
+      }, [signIn]);
     
     return (
         <>
+       
             <div className='row d-flex justify-content-center align-items-center'>
                 {!fPass && !signIn && (
                     <>
@@ -186,9 +207,8 @@ function SignUpIncomponent() {
                                 <div className='d-flex justify-content-center align-items-center'>
                                     <span className='hLine'></span>
                                 </div>
-
-                                <div className='imageicon'>
-                                    <img src={google} className='gicon' alt="google" />
+                                <div className='d-flex justify-content-center align-items-center'>
+                                <div id="signInDiv"></div>
                                 </div>
                                 <p className='Paragraph'>--or use your email account--</p>
                                 <div className='mb-3'>

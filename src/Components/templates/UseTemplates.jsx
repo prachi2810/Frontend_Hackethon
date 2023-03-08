@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './Edit.css';
+import '../Edit/Edit.css';
 import 'grapesjs/dist/css/grapes.min.css';
 import axios from 'axios';
 import grapesjs from 'grapesjs';
@@ -7,12 +7,12 @@ import presetWebpage from 'grapesjs-preset-webpage';
 import blocksBasic from 'grapesjs-blocks-basic';
 import { useNavigate, useParams } from "react-router-dom";
 
-function Edit() {
-    const nav=useNavigate()
+function UseTemplate() {
+    const navigate=useNavigate()
   const [editor,setEditor]=useState(null);
   const { id } = useParams();
 
-const updatePage=async()=>{
+const savePage=async()=>{
     const newHtml = editor.getHtml();
     const newStyle = editor.getStyle();
    const assets = editor.AssetManager.getAll().map(asset => asset.get('src'));
@@ -21,7 +21,7 @@ const updatePage=async()=>{
       css:newStyle,
       assets:assets,
     }
-    let newWebsite = await axios.patch(`http://localhost:8000/page/updatePage/${id}`, info)
+    let newWebsite = await axios.post(`http://localhost:8000/page/savePage`, info)
     console.log(newWebsite)
  }
 
@@ -29,12 +29,7 @@ const updatePage=async()=>{
         const checkLogin=async()=>{
             try{
             const result=await axios.get('http://localhost:8000/user/isLoggedIn', { withCredentials: true })
-            const webPage=await axios.get(`http://localhost:8000/page/getPage/${id}`,{ withCredentials: true })
-            if(result.data.userId!==webPage.data.userId)
-            {
-                   alert('You are not allowed to edit this page')
-                   nav('/home')
-            }
+            const webPage=await axios.get(`http://localhost:8000/templates/getTemplate/${id}`,{ withCredentials: true })
             const grapes = await grapesjs.init({
                 container: '#editor',
                 fromElement: true,
@@ -405,7 +400,7 @@ const updatePage=async()=>{
               }
             catch (err){
                 console.log(err)
-                   nav('/login')
+                   navigate('/login')
             }
         }
         checkLogin();
@@ -570,7 +565,7 @@ const updatePage=async()=>{
                         <div className='panel__basic-actions'></div>
                     </div>
                 </nav> */}
-                <button className='btn btn-primary' onClick={updatePage}>Save</button>
+                <button className='btn btn-primary' onClick={savePage}>Save</button>
                 <div id='editor'></div>
                 <div
                     className='modal fade'
@@ -630,4 +625,4 @@ const updatePage=async()=>{
     )
 }
 
-export default Edit;
+export default UseTemplate;

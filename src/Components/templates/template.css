@@ -1,0 +1,28 @@
+.scale-out-item {
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .scale-out-item:hover {
+    transform: scale(1.1);
+  }
+  .item{
+    height: 16rem;
+  }
+
+  .eachCard{
+    background-color: rgb(0, 225, 255);
+  }
+
+  .hover-btn{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .hover-btn button{
+    border-radius: 0.5rem ;
+    border: 0;
+    background-color: rgb(163, 196, 233);
+    margin-bottom: 0.5rem;
+  }
