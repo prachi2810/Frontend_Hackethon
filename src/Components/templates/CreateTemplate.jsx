@@ -35,8 +35,10 @@ function Editor() {
         formData.append('domain',domain);
         formData.append('userId',userId);
         formData.append('thumbnail',thumbNail)
-        
-        let newWebsite = await axios.post('http://localhost:8000/templates/saveTemplate', formData,{
+        for (const [name, value] of formData.entries()) {
+          console.log(`${name}: ${value}`);
+        }
+              let newWebsite = await axios.post('http://localhost:8000/templates/saveTemplate', formData,{
           headers: { 'Content-Type': 'multipart/form-data' }
         })
         console.log(newWebsite)
@@ -50,6 +52,9 @@ function Editor() {
                 const grapes = await grapesjs.init({
                     container: '#editor',
                     fromElement: true,
+                    
+
+                    dragMode:'translate',
                     width: 'auto',
                     // Disable the storage manager for the moment
                     storageManager: false,
@@ -338,7 +343,9 @@ function Editor() {
                 })
                 grapes.on('load', () => {
                     grapes.setComponents({});
+                   
                 });
+              
                 
                 setEditor(grapes);
             }

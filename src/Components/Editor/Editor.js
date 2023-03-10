@@ -6,36 +6,57 @@ import grapesjs from 'grapesjs';
 import presetWebpage from 'grapesjs-preset-webpage';
 import blocksBasic from 'grapesjs-blocks-basic';
 import tooltip from 'grapesjs-tooltip';
+import gradientPlugin from 'grapesjs-style-gradient';
+import { TagsInput } from "react-tag-input-component";
+
+import stylebg from 'grapesjs-style-bg'
 import { useNavigate } from "react-router-dom";
 import save from '../../Images/saveicon.png';
-import { useParams,Link } from 'react-router-dom';
+import { useParams,Link,useLocation } from 'react-router-dom';
+
 import tabsPlugin from  'grapesjs-tabs'
 
 function Editor() {
+  const location = useLocation();
+  const currentPath = location.pathname;
     const nav = useNavigate()
     const [userId, setUserId] = useState(null);
     const [editor, setEditor] = useState(null);
     const [name, setName]=useState('');
-    const [domain, setDomain]=useState('');
+    const [isPathEditor,setPathEditor]=useState(true);
+    const[thumbNail,setThumbnail]=useState(null);
+    const [tags,setTags]=useState([])
     const {id}=useParams();
     const savePage = async () => {
         const newHtml = editor.getHtml();
         const newStyle = editor.getStyle();
+        const html = editor.getHtml();
+        const css = editor.getStyle();
         const assets = editor.AssetManager.getAll().map(asset => asset.get('src'));
-        const info = {
-            html: newHtml,
-            css: newStyle,
-            assets: assets,
-            userId: userId,
-            name,
-            domain,
-
-        }
-        let newWebsite = await axios.post('http://localhost:8000/page/savePage', info)
+        const formData=new FormData();
+        formData.append('html',html);
+        formData.append('css',css);
+        formData.append('assets',assets);
+        formData.append('name',name);
+        formData.append('userId',userId);
+        formData.append('thumbnail',thumbNail)
+        formData.append('tags',tags);
+        if(isPathEditor){
+        let newWebsite = await axios.post('http://localhost:8000/page/savePage', {html,css,name,userId,assets});
         console.log(newWebsite)
+        }
+        else
+        {
+          let newWebsite = await axios.post('http://localhost:8000/templates/saveTemplate', formData,{
+            headers: { 'Content-Type': 'multipart/form-data' }
+          })
+          console.log(newWebsite)
+        }
     }
 
     useEffect(() => {
+       if(currentPath!=='/editor')
+       setPathEditor(false);
         const checkLogin = async () => {
             try {
                 const result = await axios.get('http://localhost:8000/user/isLoggedIn', { withCredentials: true })
@@ -44,10 +65,11 @@ function Editor() {
                     container: '#editor',
                     fromElement: true,
                     width: 'auto',
+                    dragmode:'translate',
                     // Disable the storage manager for the moment
                     storageManager: false,
                     // Avoid any default panel
-                    plugins: [blocksBasic, presetWebpage,tooltip,tabsPlugin],
+                    plugins: [blocksBasic, presetWebpage,tooltip,tabsPlugin,gradientPlugin,stylebg],
                     pluginsOpts: {
                         [blocksBasic]: {
                             blocksBasicOpts: {
@@ -142,7 +164,10 @@ function Editor() {
                                   },
                                   'text-shadow'
                               ],
-                            },{
+                            },
+                            
+                            
+                            {
                               name: 'Decorations',
                               open: false,
                               properties: [
@@ -150,7 +175,7 @@ function Editor() {
                                 'border-radius',
                                 'border',
                                 'box-shadow',
-                                'background', // { id: 'background-bg', property: 'background', type: 'bg' }
+                                'background',
                               ],
                             },{
                               name: 'Extra',
@@ -332,6 +357,8 @@ function Editor() {
                 grapes.on('load', () => {
                     grapes.setComponents({});
                 });
+                grapes.on("component:selected", function(args) { args[1].set("resizable", true); });
+
                 
                 setEditor(grapes);
             }
@@ -343,7 +370,9 @@ function Editor() {
         checkLogin();
     }, [])
 
-    
+    const saveTags=(newTags)=>{
+             setTags(newTags)
+    }
     const logout=async()=>{
       try{
           const response=await axios.get('http://localhost:8000/user/logout',{withCredentials:true});
@@ -528,8 +557,14 @@ function Editor() {
                                     <div class="mb-3">
                                         <label for="recipient-name" class="col-form-label">Title:</label>
                                         <input type="text" class="form-control" id="recipient-name" onChange={(e)=>setName(e.target.value)} />
-                                        <label for="recipient-name" class="col-form-label">Domain:</label>
-                                        <input type="text" class="form-control" id="recipient-name" onChange={(e)=>setDomain(e.target.value)} />
+                                        
+                                        {!isPathEditor&&
+                                       <><label for="tags" class="col-form-label">Tags:</label>
+                                         <TagsInput  id='tags'  name="tags"  placeHolder="Add Tags" onChange={saveTags}/> 
+                                        <em>press enter to add new tag</em><br></br>
+                                        <label for="recipient-name" class="col-form-label">Add Thumbnail</label><br></br>
+                                        <input type="file" onChange={(e)=>{console.log(e.target.files[0]); setThumbnail(e.target.files[0])}}></input></>  }
+      
                                     </div>
 
                                 </form>

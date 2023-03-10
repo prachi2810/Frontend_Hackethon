@@ -4,23 +4,20 @@ import axios from 'axios'
 import jwt_decode from 'jwt-decode';
 import { useNavigate } from "react-router-dom";
 import googleImg from "../../Images/googleicon.png";
-const defaultReg={
-    username:'',
-    email:'',
-    password:''
-}
+
 function SignUpIncomponent() {
+    const nav = useNavigate();
     const [ user, setUser ] = useState({});
     const [signIn, setsignIn] = useState(true);
     const [fPass, setfPass] = useState(false);
     const [toggle, setToggle] = useState(false);
-    const nav = useNavigate();
     const google = window.google;
     const[loaded,setLoaded]=useState(false)
     const [username, setUserName] = useState('');
     const [password, setPassword] = useState('');
-    const[Reg,setReg]=useState(defaultReg);
-    
+    const[Reg,setReg]=useState({});
+    const [email,setEmail]=useState('')
+    const[OTP,setOTP]=useState("")
 
 
     
@@ -103,16 +100,26 @@ function SignUpIncomponent() {
             console.log(err)
         }
     }
-  
+
+    const sendOtp=async()=>{
+        setToggle(true); setfPass(false);
+        const result=await axios.get(`http://localhost:8000/user/generateOTP/${username}`)
+        console.log(result)
+    }
+    const submitOTP=async()=>{
+        console.log(username)
+         const response=await axios.get(`http://localhost:8000/user/verifyOTP`,{params:{username:username,code:OTP}}) 
+         console.log(response)
+    }
      const handleSubmitReg=async(e)=>{
        e.preventDefault();
                 try{
                       const response=await axios.post('http://localhost:8000/user/register',
-                      JSON.stringify(Reg),
+                      JSON.stringify({username,email,password}),
                       {
                        headers: { 'Content-Type': 'application/json' },
                       })
-                      setReg(defaultReg)
+                      
                }
                catch (err) {
                   console.log(err)
@@ -147,22 +154,18 @@ function SignUpIncomponent() {
                                 <div className='d-flex justify-content-center align-items-center'>
                                     <span className='hLine'></span>
                                 </div>
-                                {/* <div className='imageicon'>
-                                    <img src={googleImg} className='gicon' alt="google" />
-                                </div> */}
-                                <div id="signInDiv"></div>
-                                <p className='Paragraph'>--or use your email account--</p>
+                               
                                 <div class="mb-3">
 
-                                    <input id="username" className='Input' type="text" placeholder='Username' onChange={(e)=>setReg({...Reg,username:e.target.value})} />
+                                    <input id="username" className='Input' type="text" placeholder='Username' onChange={(e)=>setUserName(e.target.value)} />
                                 </div>
                                 <div className='mb-3'>
 
-                                    <input id="email" className='Input' type="email" placeholder='Email' onChange={(e)=>setReg({...Reg,email:e.target.value})} />
+                                    <input id="email" className='Input' type="email" placeholder='Email' onChange={(e)=>setEmail(e.target.value)} />
                                 </div>
                                 <div className='mb-3'>
 
-                                    <input id="password" className='Input' type="password" placeholder='Password' onChange={(e)=>setReg({...Reg,password:e.target.value})} />
+                                    <input id="password" className='Input' type="password" placeholder='Password' onChange={(e)=>setPassword(e.target.value)} />
                                 </div>
                                 <div className='d-flex justify-content-center align-items-center'>
                                     <button className='Button'>Sign Up</button>
@@ -190,7 +193,6 @@ function SignUpIncomponent() {
 
                         <div className="RightOverlayPanel">
 
-                            <h1 className='Title'>Welcome Friends!</h1>
                             <div className='d-flex justify-content-center align-items-center'>
                                 <span className='hLine1'></span>
                             </div>
@@ -233,19 +235,18 @@ function SignUpIncomponent() {
                         <div className='col-md-8 d-flex justify-content-center align-items-center'>
                             <div>
                                 <form className='Form'>
-                                    <input id="email" className='Input' type="email" placeholder='Enter Email' />
-                                    <button className='Button' onClick={() => { setToggle(true); setfPass(false); }}>Send Mail</button>
+                                    <input id="email" className='Input' type="text" placeholder='Enter Username' onChange={(e)=>{setUserName(e.target.value)}} />
+                                    <button className='Button' onClick={sendOtp}>Send OTP</button>
                                 </form>
                             </div>
                         </div>
-
                     }
                     {toggle &&
                         <div className='col-md-8 d-flex justify-content-center align-items-center'>
                             <div>
                                 <form className='Form'>
-                                    <input id="text" className='Input' type="number" placeholder='Enter OTP' />
-                                    <button className='Button'>Send</button>
+                                    <input id="text" maxLength={4} className='Input' type="text" placeholder='Enter OTP' onChange={(e)=>{setOTP(e.target.value);console.log(OTP)}}/>
+                                    <button className='Button' onClick={submitOTP}>Submit</button>
                                 </form>
                             </div>
                         </div>

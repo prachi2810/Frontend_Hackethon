@@ -23,7 +23,7 @@ function App() {
         <Route path="addPage/:id" index element={<Addpage />}></Route>
         <Route path="login" index element={<SignUpIncomponent/>}></Route>
         <Route path="templates" index element={<AllTemplates/>}></Route>
-        <Route path="createTemplate" index element={<CreateTemplate/>}></Route>
+        <Route path="createTemplate" index element={<Editor/>}></Route>
         <Route path="useTemplate/:id" index element={<UseTemplate/>}></Route>
         
       </Routes>
