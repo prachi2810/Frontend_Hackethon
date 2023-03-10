@@ -65,7 +65,7 @@ function Editor() {
                     container: '#editor',
                     fromElement: true,
                     width: 'auto',
-                    dragmode:'translate',
+                    dragMode:'translate',
                     // Disable the storage manager for the moment
                     storageManager: false,
                     // Avoid any default panel
