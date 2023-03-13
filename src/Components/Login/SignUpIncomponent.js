@@ -12,30 +12,30 @@ const defaultReg = {
     email: '',
     password: ''
 }
-const defaultLogin={
+const defaultLogin = {
     username: '',
     password: ''
 }
 function SignUpIncomponent() {
-    const [ user, setUser ] = useState({});
+    const nav = useNavigate();
+    const [userName, setUsername] = useState({});
     const [signIn, setsignIn] = useState(true);
     const [fPass, setfPass] = useState(false);
     const [toggle, setToggle] = useState(false);
-    // const [toastReg, settoastReg] = useState(false);
-    const nav = useNavigate();
-    const google = window.google;
-    const[loaded,setLoaded]=useState(false);
+    const [loaded, setLoaded] = useState(false);
     const [Reg, setReg] = useState(defaultReg);
     const [Login, setLogin] = useState(defaultLogin);
+    const [email,setEmail]=useState('')
+    const[OTP,setOTP]=useState("")
     // const [err,setErr]=useState('');
 
     const notifyReg = () => toast.success("Successfully Register");
-    const notifyLogin=()=>toast.success("Successfully Logged In");
+    const notifyLogin = () => toast.success("Successfully Logged In");
 
-    const errorReg=()=>toast.error("something went wrong");
-    const errorStatus=()=>toast.error("Username or email already exist");
-    const errorStatusLogin=()=>toast.error("Wrong Password or Inavlid username")
-    
+    const errorReg = () => toast.error("something went wrong");
+    const errorStatus = () => toast.error("Username or email already exist");
+    const errorStatusLogin = () => toast.error("Wrong Password or Inavlid username")
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -46,21 +46,21 @@ function SignUpIncomponent() {
                     headers: { 'Content-Type': 'application/json' }
                 })
             console.log(response);
-            if(response.status==200){
-            notifyLogin();
+            if (response.status == 200) {
+                notifyLogin();
             }
-            else{
+            else {
                 errorReg();
             }
             nav('/editor')
         }
         catch (error) {
             console.log(error);
-            if(error.response.status==400){
+            if (error.response.status == 400) {
                 errorStatusLogin();
             }
-            else{
-            errorReg();
+            else {
+                errorReg();
             }
         }
     }
@@ -83,13 +83,23 @@ function SignUpIncomponent() {
         }
         catch (error) {
             console.log(error);
-            if(error.response.status==400){
+            if (error.response.status == 400) {
                 errorStatus();
             }
-            else{
-            errorReg();
+            else {
+                errorReg();
             }
         }
+    }
+    const sendOtp = async () => {
+        setToggle(true); setfPass(false);
+        const result = await axios.get(`http://localhost:8000/user/generateOTP/${userName}`)
+        console.log(result)
+    }
+    const submitOTP = async () => {
+        console.log(userName)
+        const response = await axios.get(`http://localhost:8000/user/verifyOTP`, { params: { username: userName, code: OTP } })
+        console.log(response)
     }
     return (
         <>
@@ -108,15 +118,15 @@ function SignUpIncomponent() {
                                 <div id="signInDiv"></div>
                                 {/* <p className='Paragraph'>--or use your email account--</p> */}
                                 <div class="mb-3">
-                                    <input type="text" id="username" className='Input' minLength="3"  placeholder='Username' onChange={(e) => setReg({ ...Reg, username: e.target.value })} required/>
+                                    <input type="text" id="username" className='Input' minLength="3" placeholder='Username' onChange={(e) => setReg({ ...Reg, username: e.target.value })} required />
                                 </div>
                                 <div className='mb-3'>
 
-                                    <input id="email" className='Input' type="email" placeholder='Email' onChange={(e) => setReg({ ...Reg, email: e.target.value })} required/>
+                                    <input id="email" className='Input' type="email" placeholder='Email' onChange={(e) => setReg({ ...Reg, email: e.target.value })} required />
                                 </div>
                                 <div className='mb-3'>
-                                    <input id="password" className='Input' type="password" placeholder='Password' pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" minLength="6" maxLength="12" onChange={(e) => setReg({ ...Reg, password: e.target.value })} required/>
-                                    
+                                    <input id="password" className='Input' type="password" placeholder='Password' pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" minLength="6" maxLength="12" onChange={(e) => setReg({ ...Reg, password: e.target.value })} required />
+
                                 </div>
                                 <div className='d-flex justify-content-center align-items-center'>
                                     <button className='Button'>Sign Up</button>
@@ -165,17 +175,17 @@ function SignUpIncomponent() {
                                     <span className='hLine'></span>
                                 </div>
                                 <div className='d-flex justify-content-center align-items-center'>
-                                <div id="signInDiv"></div>
+                                    <div id="signInDiv"></div>
                                 </div>
                                 {/* <p className='Paragraph'>--or use your email account--</p> */}
                                 <div className='mb-3'>
 
-                                    <input id="userName" className='Input' type="text" placeholder='Username' onChange={(e)=>setLogin({...Login,username:e.target.value})} required/>
+                                    <input id="userName" className='Input' type="text" placeholder='Username' onChange={(e) => setLogin({ ...Login, username: e.target.value })} required />
                                 </div>
 
                                 <div className='mb-3'>
 
-                                    <input id="password" className='Input' type="password" placeholder='Password' onChange={(e)=>setLogin({...Login,password:e.target.value})} required/>
+                                    <input id="password" className='Input' type="password" placeholder='Password' onChange={(e) => setLogin({ ...Login, password: e.target.value })} required />
                                 </div>
                                 <div className='d-flex justify-content-center align-items-center mb-3 '>
                                     <a href='#' className='Anchor' onClick={() => setfPass(true)}>Forgot Your Password?</a>
@@ -191,19 +201,18 @@ function SignUpIncomponent() {
                         <div className='col-md-8 d-flex justify-content-center align-items-center'>
                             <div>
                                 <form className='Form'>
-                                    <input id="email" className='Input' type="email" placeholder='Enter Email' />
-                                    <button className='Button' onClick={() => { setToggle(true); setfPass(false); }}>Send Mail</button>
+                                    <input id="email" className='Input' type="text" placeholder='Enter Username' onChange={(e) => { setUsername(e.target.value) }} />
+                                    <button className='Button' onClick={sendOtp}>Send OTP</button>
                                 </form>
                             </div>
                         </div>
-
                     }
                     {toggle &&
                         <div className='col-md-8 d-flex justify-content-center align-items-center'>
                             <div>
                                 <form className='Form'>
-                                    <input id="text" className='Input' type="number" placeholder='Enter OTP' />
-                                    <button className='Button'>Send</button>
+                                    <input id="text" maxLength={4} className='Input' type="text" placeholder='Enter OTP' onChange={(e) => { setOTP(e.target.value); console.log(OTP) }} />
+                                    <button className='Button' onClick={submitOTP}>Submit</button>
                                 </form>
                             </div>
                         </div>
