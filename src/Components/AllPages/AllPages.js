@@ -28,7 +28,7 @@ function AllPages() {
 
     const getData = async () => {
         const response = await axios.get(`http://localhost:8000/page/allPages/${id}`, { withCredentials: true })
-        console.log(response.data)
+        console.log(response)
         console.log(response.data[0]._id);
         setAllPages(response.data);
     }
@@ -36,6 +36,8 @@ function AllPages() {
     useEffect(async () => {
         getData();
     }, [])
+
+    
 
 
 
@@ -83,7 +85,7 @@ function AllPages() {
                 </div>
 
                 {allPage && allPage.map((page) => {
-
+                    console.log(page);
                     return (
                         <div className='shadow contentPage'>
                             <div className='row'>
@@ -91,11 +93,11 @@ function AllPages() {
                                     <h6>{page.name}</h6>
                                 </div>
                                 <div className="col-md-2">
-                                    <h6>17 Feb</h6>
+                                    <h6>{page.date.slice(0,10)}</h6>
                                 </div>
                                 <div className="col-md-2">
                                     <h6>Primary</h6>
-                                </div>
+                                </div>  
                                 <div className="col-md-2">
                                     <Link to={`/edit/${page._id}`}><h6><i class="bi bi-pencil-square"></i></h6></Link>
                                 </div>

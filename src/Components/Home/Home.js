@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import img from '../../Images/LandingPage1.png';
 import './Home.css';
 import { Outlet, Link } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import crousalImg from '../../Images/CrousalImg.jpg';
 import crousalImg1 from '../../Images/CrousalImg1.jpg';
+import store from '../../Images/store.jpg';
+import blog from '../../Images/blog.jpg';
+import Technology from '../../Images/Technology.jpg';
+import restaurant from '../../Images/food.jpg';
+import fashion from '../../Images/fashion.jpg';
+import fashion1 from '../../Images/fashion1.jpg';
+import food1 from '../../Images/food1.jpg';
 import icon1 from '../../Images/Icon1.png';
 import icon2 from '../../Images/Icon2.png';
 import icon3 from '../../Images/Icon3.png';
@@ -12,6 +19,7 @@ import icon4 from '../../Images/Icon4.png';
 import Footer from '../Footer/Footer';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { useParams, useLocation } from 'react-router-dom';
 
 function LandingPage() {
     const nav = useNavigate()
@@ -23,6 +31,23 @@ function LandingPage() {
         catch (err) {
             nav('/login')
         }
+    }
+
+
+    const navFunStore = () => {
+        nav('/template/store');
+    }
+    const navFunFashion = () => {
+        nav('/template/fashion');
+    }
+    const navFunTech = () => {
+        nav('/template/technology');
+    }
+    const navFunFood = () => {
+        nav('/template/restaurant');
+    }
+    const navFunBlog = () => {
+        nav('/template/blog');
     }
     return (
         <>
@@ -69,7 +94,7 @@ function LandingPage() {
                     </div>
                 </div>
                 <div className='btnVal3-div'>
-                        <button className='btnVal3' onClick={checkLogin}>Get Started</button>
+                    <button className='btnVal3' onClick={checkLogin}>Get Started</button>
                 </div>
             </div>
             <div className='template text-center'>
@@ -84,7 +109,7 @@ function LandingPage() {
                     <button className='btnVal1'>Get Started</button>
                 </div>
                 <div className='crousal'>
-                    <div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false" data-bs-interval="false">
+                    {/* <div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false" data-bs-interval="false">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
                                 <img src={crousalImg1} className='crousalImg' alt="..." />
@@ -101,6 +126,62 @@ function LandingPage() {
                             <span class="visually-hidden">Previous</span>
                         </button>
                         <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div> */}
+                    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="5" aria-label="Slide 6"></button>
+                        </div>
+                        <div class="carousel-inner">
+                            <div className="carousel-item active" data-bs-interval="10000">
+                                <img src={store} class="crousalImg" onClick={() => { navFunStore() }} alt="..." />
+                                <div className='tagClass'>
+                                    <span class="pricetag-right " id="swc">Store</span>
+                                </div>
+                            </div>
+                            <div class="carousel-item" data-bs-interval="10000">
+                                <img src={Technology} onClick={() => { navFunTech() }} class="crousalImg" alt="..." />
+                                <div className='tagClass'>
+                                    <span class="pricetag-right " id="swc">Technology</span>
+                                </div>
+                            </div>
+                            <div class="carousel-item" data-bs-interval="20000">
+                                <img src={blog} onClick={() => { navFunBlog() }} class="crousalImg" alt="..." />
+                                <div className='tagClass'>
+                                    <span class="pricetag-right " id="swc">Blog</span>
+                                </div>
+                            </div>
+                            <div class="carousel-item" data-bs-interval="20000">
+                                <img src={fashion1} onClick={() => { navFunFashion() }} class="crousalImg" alt="..." />
+                                <div className='tagClass'>
+                                    <span class="pricetag-right " id="swc">Fashion</span>
+                                </div>
+                            </div>
+                            {/* <div class="carousel-item" data-bs-interval="20000">
+                                <img src={restaurant} class="crousalImg" alt="..." />
+                                <div class="carousel-caption d-none d-md-block">
+                                    <p className='bg-dark'>Restaurant</p>
+                                </div>
+                            </div> */}
+                            <div class="carousel-item" data-bs-interval="20000">
+                                <img src={food1} onClick={() => { navFunFood() }} class="crousalImg" alt="..." />
+                                <div className='tagClass'>
+                                    <span class="pricetag-right " id="swc">Restaurant</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>

@@ -12,61 +12,62 @@ const defaultReg = {
     email: '',
     password: ''
 }
-
+const defaultLogin={
+    username: '',
+    password: ''
+}
 function SignUpIncomponent() {
+    const [ user, setUser ] = useState({});
     const [signIn, setsignIn] = useState(true);
     const [fPass, setfPass] = useState(false);
     const [toggle, setToggle] = useState(false);
     // const [toastReg, settoastReg] = useState(false);
     const nav = useNavigate();
-
-    const [username, setUserName] = useState('');
-    const [password, setPassword] = useState('');
+    const google = window.google;
+    const[loaded,setLoaded]=useState(false);
     const [Reg, setReg] = useState(defaultReg);
+    const [Login, setLogin] = useState(defaultLogin);
+    // const [err,setErr]=useState('');
 
     const notifyReg = () => toast.success("Successfully Register");
     const notifyLogin=()=>toast.success("Successfully Logged In");
-    const changeValue = (e) => {
-        switch (e.target.id) {
-            case 'userName': {
-                setUserName(e.target.value)
-                break;
-            };
 
-            case 'password': {
-                setPassword(e.target.value)
-                break
-            }
-        }
-    }
+    const errorReg=()=>toast.error("something went wrong");
+    const errorStatus=()=>toast.error("Username or email already exist");
+    const errorStatusLogin=()=>toast.error("Wrong Password or Inavlid username")
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const userData = {
-            username, password
-        }
         try {
             const response = await axios.post('http://localhost:8000/user/login',
-                JSON.stringify(userData),
+                JSON.stringify(Login),
                 {
                     withCredentials: true,
                     headers: { 'Content-Type': 'application/json' }
-
                 })
-            console.log(response)
-            
-            // settoastReg(true);
+            console.log(response);
+            if(response.status==200){
+            notifyLogin();
+            }
+            else{
+                errorReg();
+            }
             nav('/editor')
         }
-        catch (err) {
-            console.log(err)
+        catch (error) {
+            console.log(error);
+            if(error.response.status==400){
+                errorStatusLogin();
+            }
+            else{
+            errorReg();
+            }
         }
     }
 
     const handleSubmitReg = async (e) => {
         e.preventDefault();
-        //    const userData={
-        //      usernameReg,emailReg,passwordReg
-        //    }
+
         try {
             const response = await axios.post('http://localhost:8000/user/register',
                 JSON.stringify(Reg),
@@ -74,12 +75,20 @@ function SignUpIncomponent() {
                     headers: { 'Content-Type': 'application/json' },
                     // withCredentials: true
                 })
-            setReg(defaultReg)
+            setReg(defaultReg);
+            notifyReg();
             console.log(response);
+            nav('/login')
             // settoastReg(true);
         }
-        catch (err) {
-            console.log(err)
+        catch (error) {
+            console.log(error);
+            if(error.response.status==400){
+                errorStatus();
+            }
+            else{
+            errorReg();
+            }
         }
     }
     return (
@@ -93,24 +102,24 @@ function SignUpIncomponent() {
                                 <div className='d-flex justify-content-center align-items-center'>
                                     <span className='hLine'></span>
                                 </div>
-                                <div className='imageicon'>
-                                    <img src={google} className='gicon' alt="google" />
-                                </div>
-                                <p className='Paragraph'>--or use your email account--</p>
+                                {/* <div className='imageicon'>
+                                    <img src={googleImg} className='gicon' alt="google" />
+                                </div> */}
+                                <div id="signInDiv"></div>
+                                {/* <p className='Paragraph'>--or use your email account--</p> */}
                                 <div class="mb-3">
-
-                                    <input id="username" className='Input' type="text" placeholder='Username' onChange={(e) => setReg({ ...Reg, username: e.target.value })} />
+                                    <input type="text" id="username" className='Input' minLength="3"  placeholder='Username' onChange={(e) => setReg({ ...Reg, username: e.target.value })} required/>
                                 </div>
                                 <div className='mb-3'>
 
-                                    <input id="email" className='Input' type="email" placeholder='Email' onChange={(e) => setReg({ ...Reg, email: e.target.value })} />
+                                    <input id="email" className='Input' type="email" placeholder='Email' onChange={(e) => setReg({ ...Reg, email: e.target.value })} required/>
                                 </div>
                                 <div className='mb-3'>
-
-                                    <input id="password" className='Input' type="password" placeholder='Password' onChange={(e) => setReg({ ...Reg, password: e.target.value })} />
+                                    <input id="password" className='Input' type="password" placeholder='Password' pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" minLength="6" maxLength="12" onChange={(e) => setReg({ ...Reg, password: e.target.value })} required/>
+                                    
                                 </div>
                                 <div className='d-flex justify-content-center align-items-center'>
-                                    <button className='Button' onClick={notifyReg}>Sign Up</button>
+                                    <button className='Button'>Sign Up</button>
                                     {/* <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> */}
                                     <ToastContainer />
                                 </div>
@@ -138,7 +147,7 @@ function SignUpIncomponent() {
 
                         <div className="RightOverlayPanel">
 
-                            <h1 className='Title'>Welcome Friends!</h1>
+                            <h1 className='Title'>Welcome !</h1>
                             <div className='d-flex justify-content-center align-items-center'>
                                 <span className='hLine1'></span>
                             </div>
@@ -155,25 +164,24 @@ function SignUpIncomponent() {
                                 <div className='d-flex justify-content-center align-items-center'>
                                     <span className='hLine'></span>
                                 </div>
-
-                                <div className='imageicon'>
-                                    <img src={google} className='gicon' alt="google" />
+                                <div className='d-flex justify-content-center align-items-center'>
+                                <div id="signInDiv"></div>
                                 </div>
-                                <p className='Paragraph'>--or use your email account--</p>
+                                {/* <p className='Paragraph'>--or use your email account--</p> */}
                                 <div className='mb-3'>
 
-                                    <input id="userName" className='Input' type="text" placeholder='Username' onChange={changeValue} />
+                                    <input id="userName" className='Input' type="text" placeholder='Username' onChange={(e)=>setLogin({...Login,username:e.target.value})} required/>
                                 </div>
 
                                 <div className='mb-3'>
 
-                                    <input id="password" className='Input' type="password" placeholder='Password' onChange={changeValue} />
+                                    <input id="password" className='Input' type="password" placeholder='Password' onChange={(e)=>setLogin({...Login,password:e.target.value})} required/>
                                 </div>
                                 <div className='d-flex justify-content-center align-items-center mb-3 '>
                                     <a href='#' className='Anchor' onClick={() => setfPass(true)}>Forgot Your Password?</a>
                                 </div>
                                 <div className='d-flex justify-content-center align-items-center'>
-                                    <button type="submit" className='Button' onClick={()=>{handleSubmit();notifyLogin()}}>Sign In</button>
+                                    <button type="submit" className='Button'>Sign In</button>
                                     <ToastContainer />
                                 </div>
                             </form>

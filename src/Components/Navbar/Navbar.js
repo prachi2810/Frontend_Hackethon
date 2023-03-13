@@ -1,28 +1,39 @@
 import { React, useState } from 'react';
 import './navbar.css';
-import { Outlet, Link, useParams } from 'react-router-dom';
+import { Outlet, Link,useParams,useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect } from 'react';
 
 function Navbar() {
     const [isLogin, setLogin] = useState(false);
-    // const { id } = useParams();
     const [Id,setId]=useState(0);
+
+    const {id}=useParams();
+    const navigate=useNavigate();
     const checkLogin = async () => {
         try {
             const result = await axios.get('http://localhost:8000/user/isLoggedIn', { withCredentials: true })
-            // nav('/editor')
-            console.log(result.data.userId);
             setId(result.data.userId);
             setLogin(true);
         }
         catch (err) {
-            //    nav('/login')
             setLogin(false);
         }
     }
+    const logout=async()=>{
+        try{
+            const response=await axios.get('http://localhost:8000/user/logout',{withCredentials:true});
+            if(window.location.pathname!=='/')
+            navigate('/')
+            else{
+                window.location.reload();
+            }
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
     useEffect(() => {
-
         checkLogin();
     }, [])
     return (
@@ -53,7 +64,7 @@ function Navbar() {
                                          <li><Link to={`/allPages/${Id}`}><a className="dropdown-item" href="#">All Pages</a></Link></li>
                                          <li><a className="dropdown-item" href="#">Profile</a></li>
                                          <li><hr className="dropdown-divider" /></li>
-                                         <li><a className="dropdown-item" href="#">Sign Out</a></li>
+                                         <li><a className="dropdown-item" onClick={logout}>Sign Out</a></li>
                                      </ul>
                                  </li> 
                                  : <li classNameName="nav-item">

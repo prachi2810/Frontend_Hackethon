@@ -128,9 +128,9 @@ html {
 .gjs-block, .gjs-one-bg, .gjs-four-color-h{
    background-color: white !important;
 }
-.gjs-blocks-c{
+/* .gjs-blocks-c{ */
    /* background-color: #F3F7F9 !important; */
-   background-color:#DEF2F1 !important;
+   /* background-color:#DEF2F1 !important;
 }
 
 .gjs-pn-buttons{
@@ -143,7 +143,7 @@ html {
 
 .gjs-pn-btn {
     border: 1px solid #718DAD !important;
-}
+} */
 
 .btn,
 .nav-link,
@@ -187,9 +187,9 @@ html {
     min-width: 150px;
 }
 /* Let's highlight canvas boundaries */
-#gjs {
+/* #gjs {
     border: 3px solid #444;
-  }
+  } */
   
   /* Reset some default styling */
   .gjs-cv-canvas {
@@ -219,6 +219,38 @@ html {
     left:95%;
     bottom: 96%;
     z-index: 1000;
+}
+.infoText{
+    display: none;
+}
+.spinner{
+    height: 100vh;
+}
+
+@media screen and (max-width:600px){
+    #editor{
+        display: none;
+    }
+    .main-content{
+        display: none;
+    }
+    .sidenav{
+        display: none;
+        flex: none;
+        width: 0% ;
+    }
+    .tab-content{
+        display: none;
+    }
+    .tabs{
+        display: none;
+    }
+    .container-fluid,.navbar-brand{
+        display: none;
+    }
+    .infoText{
+        display: block;
+    }
 }
 
 /*# sourceMappingURL=main.css.map */

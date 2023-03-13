@@ -70,7 +70,6 @@ html {
 }
 
 .gjs-pn-views-container, .gjs-pn-views {
-    /* position: relative; */
     display: none !important;
 }
 
@@ -111,13 +110,12 @@ html {
     display: none;
 }
 
-/* Theming */
 .gjs-one-bg {
     background-color: #DEF2F1 !important;
 }
 
 .gjs-two-color {
-    color: #2B7A78 !important;
+    color: #057c78 !important;
 }
 
 .gjs-three-bg {
@@ -129,8 +127,7 @@ html {
    background-color: white !important;
 }
 .gjs-blocks-c{
-   /* background-color: #F3F7F9 !important; */
-   background-color:#DEF2F1 !important;
+   background-color:#03312f !important;
 }
 
 .gjs-pn-buttons{
@@ -142,7 +139,7 @@ html {
 }
 
 .gjs-pn-btn {
-    border: 1px solid #718DAD !important;
+    border: 1px solid #000 !important;
 }
 
 .btn,
@@ -160,7 +157,6 @@ html {
     color: #fcf6f5ff !important;
 }
 
-/** Error **/
 .error .bg-body {
     min-height: 150px;
     max-height: 150px;
@@ -186,16 +182,13 @@ html {
     font-weight: 700;
     min-width: 150px;
 }
-/* Let's highlight canvas boundaries */
 #gjs {
     border: 3px solid #444;
   }
   
-  /* Reset some default styling */
   .gjs-cv-canvas {
     position: absolute !important;
     top: 40px !important;
-    /* top:0; */
     width: 100% !important;
     height: 100% !important;
   }
@@ -211,14 +204,42 @@ html {
     height: 28px !important;
     color: white;
 }
-/* .savebtn:hover{
-    background-color: ;
-} */
+
 .profile{
     position: absolute;
     left:95%;
     bottom: 96%;
     z-index: 1000;
 }
+.infoText{
+    display: none;
+}
+.spinner{
+    height: 100vh;
+}
 
-/*# sourceMappingURL=main.css.map */
+@media screen and (max-width:600px){
+    #editor{
+        display: none;
+    }
+    .main-content{
+        display: none;
+    }
+    .sidenav{
+        display: none;
+        flex: none;
+        width: 0% ;
+    }
+    .tab-content{
+        display: none;
+    }
+    .tabs{
+        display: none;
+    }
+    .container-fluid,.navbar-brand{
+        display: none;
+    }
+    .infoText{
+        display: block;
+    }
+}

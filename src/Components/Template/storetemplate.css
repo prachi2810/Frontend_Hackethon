@@ -1,0 +1,88 @@
+.buttonStore{
+    margin-left: 45%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    padding: 1%;
+    border-radius: 8px;
+    background-color:#3AAFA9;
+    border:0;
+    color: white;
+}
+
+.buttonStore:hover{
+    background-color: #057a75;
+}
+
+
+.cardTemplate{
+    /* width: 20rem; */
+    position: relative;
+    width: 350px;
+    left: 10%;
+}
+
+.card-img-top{
+    height: 200px;
+}
+
+.image__overlay{
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 200px;
+    background:rgba(0,0,0,0.6);
+    color: white;
+    display:flex;
+    font-family: sans-serif;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.25s;
+}
+
+.image__overlay:hover{
+   opacity: 0.9;
+}
+
+.image__overlay > *{
+    transform: translateY(20px);
+    transition: transform 0.25s;
+}
+.image__overlay > *{
+    transform: translateY(0);
+}
+
+.image__overlay--blur{
+    backdrop-filter: blur(5px);
+}
+
+.image__overlay--primary{
+     background: #ffffff;
+}
+
+.btnTemp{
+    color: white;
+    margin-bottom: 5%;
+    width: 30%;
+    border-radius: 25px !important;
+    padding: 3% !important;
+    
+}
+.btnTemp:hover{
+    background-color: rgb(41, 41, 255);
+    color: white;
+}
+.btnTemp1{
+    color: white;
+    width: 30%;
+    border-radius: 25px !important;
+    padding: 3% !important;
+}
+.btnTemp1:hover{
+    background-color: blue;
+    color: white;
+}
+
+

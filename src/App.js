@@ -1,11 +1,14 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import AllPages from "./Components/AllPages/AllPages";
+import AllPages from "./Components/allPages/AllPages";
 import Home from "./Components/Home/Home";
 import Editor from "./Components/Editor/Editor";
+import Login from "./Components/Login/SignUpIncomponent";
 import Edit from "./Components/Edit/Edit";
-// import "../src/Components/Login/styles.css";
 import SignUpIncomponent from "./Components/Login/SignUpIncomponent";
+import UseTemplate from "./Components/Template/UseTemplates";
+import StoreTemplate from "./Components/Template/StoreTemplate";
+
 function App() {
   return (
     <div className="App">
@@ -16,6 +19,10 @@ function App() {
         <Route path="edit/:id" index element={<Edit />}></Route>
         <Route path="allPages/:id" index element={<AllPages/>}></Route>
         <Route path="login" index element={<SignUpIncomponent/>}></Route>
+        <Route path="createTemplate" index element={<Editor/>}></Route>
+        <Route path="useTemplate/:id" index element={<UseTemplate/>}></Route>
+        <Route path="template/:tags" index element={<StoreTemplate/>}></Route>
+        
       </Routes>
     </div>
   );

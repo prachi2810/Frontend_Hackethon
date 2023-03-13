@@ -187,13 +187,23 @@
 
     .RightOverlayPanel {
        top:-25%;
+       width: 90%;
     }
 
     .LeftOverlayPanel {
-        top:70%;
+        top:60%;
         height:auto;
+        width: 90%;
     }
     .SignUpContainer{
         height: auto;
+        margin-bottom: 30px;
     }
+    .backColor{
+     margin-bottom: 30px;
+    }
+    .GhostButton {
+        padding: 5px 38px;
+    }
+    
 }
