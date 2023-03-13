@@ -11,6 +11,7 @@ function AllPages() {
     const [allPage, setAllPages] = useState(null);
     const [idPage, setId] = useState(null);
     const [del, setdel] = useState('');
+    const [load, setLoad] = useState(false);
 
     const { id } = useParams();
     const deletePage = async (deleteid) => {
@@ -26,24 +27,42 @@ function AllPages() {
 
     }
 
-    const getData = async () => {
-        const response = await axios.get(`http://localhost:8000/page/allPages/${id}`, { withCredentials: true })
-        console.log(response)
-        console.log(response.data[0]._id);
-        setAllPages(response.data);
-    }
+    
 
     useEffect(async () => {
+        const getData = async () => {
+            try {
+                setLoad(true);
+                const response = await axios.get(`http://localhost:8000/page/allPages/${id}`, { withCredentials: true })
+                console.log(response)
+                console.log(response.data[0]._id);
+                setAllPages(response.data);
+            }
+            catch (error) {
+                console.log(error);
+            }
+            finally {
+                setLoad(false);
+            }
+        }
         getData();
     }, [])
 
-    
+
 
 
 
     return (
         <>
             <Navbar />
+            {load ?
+
+                <div className="d-flex justify-content-center align-items-center spinner">
+                    {/* <strong>Loading...</strong> */}
+                    <div class="spinner-border" role="status" aria-hidden="true"></div>
+                </div>
+                :
+                <>
             <div className="container">
                 <div className='row first'>
                     <div className='titlePage'>
@@ -141,6 +160,8 @@ function AllPages() {
                     </div>
                 </div>
             </div>
+            </>
+            }
         </>
     )
 }
