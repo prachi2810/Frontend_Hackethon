@@ -31,7 +31,7 @@ function StoreTemplate() {
             }
             catch (err) {
                 console.log(err)
-            }finally{
+            } finally {
                 setLoad(false);
             }
         }
@@ -55,37 +55,42 @@ function StoreTemplate() {
 
             {load ?
 
-                <div className="d-flex justify-content-center align-items-center spinner">
-                    {/* <strong>Loading...</strong> */}
-                    <div class="spinner-border" role="status" aria-hidden="true"></div>
+                <div className='mainBody'>
+                    <div class="containerSpinner">
+                        <div class="ring"></div>
+                        <div class="ring"></div>
+                        <div class="ring"></div>
+                        <span class="loading">Loading...</span>
+                    </div>
+
                 </div>
                 :
                 <>
-            <div>
-                <button className='buttonStore' onClick={() => { navEditor(); }}>Create Template</button>
-            </div>
-            <div className='row'>
-                {templates && templates.map(template => {
-                    console.log(template)
-                    return (
-                        <div className='col-md-4'>
-                            <figure>
-                                <div class="cardTemplate">
-                                    <img src={`data:image/jpeg;base64,${template.thumbnail}`} className="card-img-top" alt="..." />
-                                    <figcaption>Store</figcaption>
-                                    <div className='image__overlay image__overlay--primary'>
-                                        <button type="button" className='btn btn-primary btnTemp' onClick={()=>{editTemplate(template._doc._id)}}> Edit</button>
-                                        <button type="button" className='btn btn-outline-primary btnTemp1'> View</button>
-                                    </div>
+                    <div>
+                        <button className='buttonStore' onClick={() => { navEditor(); }}>Create Template</button>
+                    </div>
+                    <div className='row'>
+                        {templates && templates.map(template => {
+                            console.log(template)
+                            return (
+                                <div className='col-md-4'>
+                                    <figure>
+                                        <div class="cardTemplate">
+                                            <img src={`data:image/jpeg;base64,${template.thumbnail}`} className="card-img-top" alt="..." />
+                                            <figcaption>Store</figcaption>
+                                            <div className='image__overlay image__overlay--primary'>
+                                                <button type="button" className='btn btn-primary btnTemp' onClick={() => { editTemplate(template._doc._id) }}> Edit</button>
+                                                <button type="button" className='btn btn-outline-primary btnTemp1'> View</button>
+                                            </div>
+                                        </div>
+                                    </figure>
                                 </div>
-                            </figure>
-                        </div>
-                    )
-                })
-                }
-            </div>
-            </>
-}
+                            )
+                        })
+                        }
+                    </div>
+                </>
+            }
         </>
     )
 }

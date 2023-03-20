@@ -37,6 +37,7 @@ function Editor() {
     const [domain, setDomain] = useState(null);
     const [hasError, setError] = useState(false);
     const [load, setLoad] = useState(false);
+    const [userNameNav, setuserNameNav] = useState('');
 
 
     const { id } = useParams();
@@ -101,11 +102,13 @@ function Editor() {
 
                 const result = await axios.get('http://localhost:8000/user/isLoggedIn', { withCredentials: true })
                 setUserId(result.data.userId)
+                setuserNameNav(result.data.username)
                 const grapes = await grapesjs.init({
                     container: '#editor',
                     fromElement: true,
                     width: 'auto',
                     dragMode: 'translate',
+                    allowScripts:1,
                     // Disable the storage manager for the moment
                     storageManager: false,
                     // Avoid any default panel
@@ -442,9 +445,14 @@ function Editor() {
         <>
             {load ?
 
-                <div className="d-flex justify-content-center align-items-center spinner">
-                    {/* <strong>Loading...</strong> */}
-                    <div class="spinner-border" role="status" aria-hidden="true"></div>
+                <div className='mainBody'>
+                    <div class="containerSpinner">
+                        <div class="ring"></div>
+                        <div class="ring"></div>
+                        <div class="ring"></div>
+                        <span class="loading">Loading...</span>
+                    </div>
+
                 </div>
                 :
                 <>
@@ -583,28 +591,26 @@ function Editor() {
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-
                                         <button type="button" class="btn btn-primary" onClick={() => { savePage(); notifySave() }} disabled={name == null || tags == null} data-bs-dismiss="modal">Save</button>
-
-
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="profile">
-                            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle" />
-                            </a>
-                            <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                                <li><Link to={`/allPages/${userId}`}><a class="dropdown-item" href="#">All Pages</a></Link></li>
-                                {/* <li><a class="dropdown-item" href="#">Settings</a></li> */}
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" onClick={logout} >Log out</a></li>
-                            </ul>
+                            <div className='dropdown'>
+                                <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {/* <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle" /> */}
+                                    <span className='avatar'>{userNameNav[0]}</span>
+                                </a>
+                                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                                    <li><Link to={`/allPages/${userId}`}><a class="dropdown-item" href="#">All Pages</a></Link></li>
+                                    {/* <li><a class="dropdown-item" href="#">Settings</a></li> */}
+                                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                                    <li><hr class="dropdown-divider" /></li>
+                                    <li><a class="dropdown-item" onClick={logout} >Log out</a></li>
+                                </ul>
+                            </div>
                         </div>
-
-
                     </div>
                 </>
             }

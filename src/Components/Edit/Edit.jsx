@@ -5,6 +5,13 @@ import axios from 'axios';
 import grapesjs from 'grapesjs';
 import presetWebpage from 'grapesjs-preset-webpage';
 import blocksBasic from 'grapesjs-blocks-basic';
+import tooltip from 'grapesjs-tooltip';
+import gradientPlugin from 'grapesjs-style-gradient';
+import pluginNavbar from "grapesjs-navbar";
+import pluginCountdown from "grapesjs-component-countdown";
+import tabsPlugin from 'grapesjs-tabs';
+import pluginExport from "grapesjs-plugin-export";
+import pluginForms from "grapesjs-plugin-forms";
 import stylebg from 'grapesjs-style-bg'
 import { useNavigate, useParams } from "react-router-dom";
 import save from '../../Images/saveicon.png';
@@ -17,18 +24,31 @@ function Edit() {
     const { id } = useParams();
     const [userId, setUserId] = useState(null);
     const [load, setLoad] = useState(false);
+    const [userNameNav, setuserNameNav] = useState('');
+    const location = useLocation();
+    const currentPath = location.pathname;
+    let initialIsPathTemplate = false;
+    if (currentPath.includes("editTemplate")) {
+        initialIsPathTemplate = true;
+    }
 
     const updatePage = async () => {
+        setLoad(true);
         const newHtml = editor.getHtml();
         const newStyle = editor.getStyle();
         const assets = editor.AssetManager.getAll().map(asset => asset.get('src'));
+        let newWebsite;
         const info = {
             html: newHtml,
             css: newStyle,
             assets: assets,
         }
-        let newWebsite = await axios.patch(`http://localhost:8000/page/updatePage/${id}`, info)
-        console.log(newWebsite)
+        if (initialIsPathTemplate)
+            newWebsite = await axios.patch(`http://localhost:8000/templates/updateTemplate/${id}`, info)
+        else {
+            newWebsite = await axios.patch(`http://localhost:8000/page/updatePage/${id}`, info)
+            console.log(newWebsite)
+        }
     }
     const logout = async () => {
 
@@ -48,10 +68,16 @@ function Edit() {
     useEffect(() => {
         const checkLogin = async () => {
             try {
+                let webPage = null;
                 const result = await axios.get('http://localhost:8000/user/isLoggedIn', { withCredentials: true })
                 setUserId(result.data.userId)
-                const webPage = await axios.get(`http://localhost:8000/page/getPage/${id}`, { withCredentials: true })
-                if (result.data.userId !== webPage.data.userId) {
+                setuserNameNav(result.data.username)
+                if (initialIsPathTemplate)
+                    webPage = await axios.get(`http://localhost:8000/templates/getTemplate/${id}`, { withCredentials: true })
+                else
+                    webPage = await axios.get(`http://localhost:8000/page/getPage/${id}`, { withCredentials: true })
+                console.log(webPage)
+                if (webPage.data && result.data.userId !== webPage.data.userId) {
                     alert('You are not allowed to edit this page')
                     nav('/home')
                 }
@@ -59,10 +85,12 @@ function Edit() {
                     container: '#editor',
                     fromElement: true,
                     width: 'auto',
+                    allowScripts: 1,
                     // Disable the storage manager for the moment
                     storageManager: false,
                     // Avoid any default panel
-                    plugins: [blocksBasic, presetWebpage],
+                    plugins: [blocksBasic, presetWebpage, tooltip, tabsPlugin, gradientPlugin, stylebg, pluginNavbar,
+                        pluginExport, pluginCountdown, pluginForms],
                     pluginsOpts: {
                         [blocksBasic]: {
                             blocksBasicOpts: {
@@ -367,179 +395,188 @@ function Edit() {
 
     return (
         <>
-            <div id='navbar' className='sidenav d-flex flex-column overflow-scroll'>
-                <nav className='navbar navbar-light'>
-                    <div className='container-fluid'>
-                        <span className='navbar-brand mb-0 h3 logo'>Webify</span>
+            {load ?
+                <div className='mainBody'>
+                    <div className='center'>
+                        <div className='ring'></div>
+                        <span>Loading...</span>
                     </div>
-                </nav>
-                <div className='my-2 d-flex flex-column'>
-                    <button
-                        type='button'
-                        className='btn btn-outline-secondary btn-sm mb-2 mx-2'
-                        data-bs-toggle='modal'
-                        data-bs-target='#addPageModal'
-                    >
-                        <i className='bi bi-plus'></i>
-                        Add Page
-                    </button>
-                    <ul className='list-group pages'>
-                        <li className='list-group-item d-flex justify-content-between align-items-center'>
-                            Home
-                            <div className='m-2'>
-                                <button className='btn btn-sm btn-outline-primary'>
-                                    <i className='bi bi-pencil'></i>
-                                </button>
-                                <button className='btn btn-sm btn-outline-danger'>
-                                    <i className='bi bi-trash'></i>
-                                </button>
-                            </div>
-                        </li>
-                        <li className='list-group-item d-flex justify-content-between align-items-center'>
-                            About
-                            <div className='m-2'>
-                                <button className='btn btn-sm btn-outline-primary'>
-                                    <i className='bi bi-pencil'></i>
-                                </button>
-                                <button className='btn btn-sm btn-outline-danger'>
-                                    <i className='bi bi-trash'></i>
-                                </button>
-                            </div>
-                        </li>
-                        <li className='list-group-item d-flex justify-content-between align-items-center'>
-                            Contact Us
-                            <div className='m-2'>
-                                <button className='btn btn-sm btn-outline-primary'>
-                                    <i className='bi bi-pencil'></i>
-                                </button>
-                                <button className='btn btn-sm btn-outline-danger'>
-                                    <i className='bi bi-trash'></i>
-                                </button>
-                            </div>
-                        </li>
-                    </ul>
                 </div>
-                <div className=''>
-                    <ul className='nav nav-tabs' id='myTab' role='tablist'>
-                        <li className='nav-item' role='presentation'>
+                :
+                <>
+                    <div id='navbar' className='sidenav d-flex flex-column overflow-scroll'>
+                        <nav className='navbar navbar-light'>
+                            <div className='container-fluid'>
+                                <span className='navbar-brand mb-0 h3 logo'>Webify</span>
+                            </div>
+                        </nav>
+                        <div className='my-2 d-flex flex-column'>
                             <button
-                                className='nav-link active'
-                                id='block-tab'
-                                data-bs-toggle='tab'
-                                data-bs-target='#block'
                                 type='button'
-                                role='tab'
-                                aria-controls='block'
-                                aria-selected='true'
+                                className='btn btn-outline-secondary btn-sm mb-2 mx-2'
+                                data-bs-toggle='modal'
+                                data-bs-target='#addPageModal'
                             >
-                                <i className='bi bi-grid-fill'></i>
+                                <i className='bi bi-plus'></i>
+                                Add Page
                             </button>
-                        </li>
-                        <li className='nav-item' role='presentation'>
-                            <button
-                                className='nav-link'
-                                id='layer-tab'
-                                data-bs-toggle='tab'
-                                data-bs-target='#layer'
-                                type='button'
-                                role='tab'
-                                aria-controls='layer'
-                                aria-selected='false'
-                            >
-                                <i className='bi bi-layers-fill'></i>
-                            </button>
-                        </li>
-                        <li className='nav-item' role='presentation'>
-                            <button
-                                className='nav-link'
-                                id='style-tab'
-                                data-bs-toggle='tab'
-                                data-bs-target='#style'
-                                type='button'
-                                role='tab'
-                                aria-controls='style'
-                                aria-selected='false'
-                            >
-                                <i class="bi bi-palette-fill"></i>
-                            </button>
-                        </li>
-                        <li className='nav-item' role='presentation'>
-                            <button
-                                className='nav-link'
-                                id='trait-tab'
-                                data-bs-toggle='tab'
-                                data-bs-target='#trait'
-                                type='button'
-                                role='tab'
-                                aria-controls='trait'
-                                aria-selected='false'
-                            >
-                                <i class="bi bi-gear-fill"></i>
-                            </button>
-                        </li>
-                    </ul>
-                    <div className='tab-content'>
-                        <div
-                            className='tab-pane fade show active'
-                            id='block'
-                            role='tabpanel'
-                            aria-labelledby='block-tab'
-                        >
-                            <div id="blocks"></div>
+                            <ul className='list-group pages'>
+                                <li className='list-group-item d-flex justify-content-between align-items-center'>
+                                    Home
+                                    <div className='m-2'>
+                                        <button className='btn btn-sm btn-outline-primary'>
+                                            <i className='bi bi-pencil'></i>
+                                        </button>
+                                        <button className='btn btn-sm btn-outline-danger'>
+                                            <i className='bi bi-trash'></i>
+                                        </button>
+                                    </div>
+                                </li>
+                                <li className='list-group-item d-flex justify-content-between align-items-center'>
+                                    About
+                                    <div className='m-2'>
+                                        <button className='btn btn-sm btn-outline-primary'>
+                                            <i className='bi bi-pencil'></i>
+                                        </button>
+                                        <button className='btn btn-sm btn-outline-danger'>
+                                            <i className='bi bi-trash'></i>
+                                        </button>
+                                    </div>
+                                </li>
+                                <li className='list-group-item d-flex justify-content-between align-items-center'>
+                                    Contact Us
+                                    <div className='m-2'>
+                                        <button className='btn btn-sm btn-outline-primary'>
+                                            <i className='bi bi-pencil'></i>
+                                        </button>
+                                        <button className='btn btn-sm btn-outline-danger'>
+                                            <i className='bi bi-trash'></i>
+                                        </button>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
-                        <div
-                            className='tab-pane fade'
-                            id='layer'
-                            role='tabpanel'
-                            aria-labelledby='layer-tab'
-                        >
-                            <div id="layers-container"></div>
+                        <div className=''>
+                            <ul className='nav nav-tabs' id='myTab' role='tablist'>
+                                <li className='nav-item' role='presentation'>
+                                    <button
+                                        className='nav-link active'
+                                        id='block-tab'
+                                        data-bs-toggle='tab'
+                                        data-bs-target='#block'
+                                        type='button'
+                                        role='tab'
+                                        aria-controls='block'
+                                        aria-selected='true'
+                                    >
+                                        <i className='bi bi-grid-fill'></i>
+                                    </button>
+                                </li>
+                                <li className='nav-item' role='presentation'>
+                                    <button
+                                        className='nav-link'
+                                        id='layer-tab'
+                                        data-bs-toggle='tab'
+                                        data-bs-target='#layer'
+                                        type='button'
+                                        role='tab'
+                                        aria-controls='layer'
+                                        aria-selected='false'
+                                    >
+                                        <i className='bi bi-layers-fill'></i>
+                                    </button>
+                                </li>
+                                <li className='nav-item' role='presentation'>
+                                    <button
+                                        className='nav-link'
+                                        id='style-tab'
+                                        data-bs-toggle='tab'
+                                        data-bs-target='#style'
+                                        type='button'
+                                        role='tab'
+                                        aria-controls='style'
+                                        aria-selected='false'
+                                    >
+                                        <i class="bi bi-palette-fill"></i>
+                                    </button>
+                                </li>
+                                <li className='nav-item' role='presentation'>
+                                    <button
+                                        className='nav-link'
+                                        id='trait-tab'
+                                        data-bs-toggle='tab'
+                                        data-bs-target='#trait'
+                                        type='button'
+                                        role='tab'
+                                        aria-controls='trait'
+                                        aria-selected='false'
+                                    >
+                                        <i class="bi bi-gear-fill"></i>
+                                    </button>
+                                </li>
+                            </ul>
+                            <div className='tab-content'>
+                                <div
+                                    className='tab-pane fade show active'
+                                    id='block'
+                                    role='tabpanel'
+                                    aria-labelledby='block-tab'
+                                >
+                                    <div id="blocks"></div>
+                                </div>
+                                <div
+                                    className='tab-pane fade'
+                                    id='layer'
+                                    role='tabpanel'
+                                    aria-labelledby='layer-tab'
+                                >
+                                    <div id="layers-container"></div>
+                                </div>
+                                <div
+                                    className='tab-pane fade'
+                                    id='style'
+                                    role='tabpanel'
+                                    aria-labelledby='style-tab'
+                                >
+                                    <div id="styles-container"></div>
+                                </div>
+                                <div
+                                    className='tab-pane fade'
+                                    id='trait'
+                                    role='tabpanel'
+                                    aria-labelledby='trait-tab'
+                                >
+                                    <div id="trait-container"></div>
+                                </div>
+
+                            </div>
                         </div>
-                        <div
-                            className='tab-pane fade'
-                            id='style'
-                            role='tabpanel'
-                            aria-labelledby='style-tab'
-                        >
-                            <div id="styles-container"></div>
-                        </div>
-                        <div
-                            className='tab-pane fade'
-                            id='trait'
-                            role='tabpanel'
-                            aria-labelledby='trait-tab'
-                        >
-                            <div id="trait-container"></div>
+                    </div>
+                    <div className='main-content'>
+                        <div id='editor'></div>
+                        <button className='savebtn' onClick={updatePage}>Save<img src={save} width="25" alt="save" /></button>
+                        <ToastContainer />
+                        <div class="profile">
+                            <div className='dropdown'>
+                                <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {/* <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle" /> */}
+                                    <span className='avatar'>{userNameNav[0]}</span>
+                                </a>
+                                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                                    <li><Link to={`/allPages/${userId}`}><a class="dropdown-item" href="#">All Pages</a></Link></li>
+                                    {/* <li><a class="dropdown-item" href="#">Settings</a></li> */}
+                                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                                    <li><hr class="dropdown-divider" /></li>
+                                    <li><a class="dropdown-item" onClick={logout} >Log out</a></li>
+                                </ul>
+                            </div>
                         </div>
 
                     </div>
-                </div>
-            </div>
-            <div className='main-content'>
-                {/* <nav className='navbar navbar-light'>
-                    <div className='container-fluid'>
-                        <div className='panel__devices'></div>
-                        <div className='panel__basic-actions'></div>
-                    </div>
-                </nav> */}
-                {/* <button className='btn btn-primary' onClick={updatePage}>Save</button> */}
-                <div id='editor'></div>
-                <button className='savebtn' onClick={updatePage}>Save<img src={save} width="25" alt="save" /></button>
-                <ToastContainer />
-                <div class="profile">
-                    <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle" />
-                    </a>
-                    <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                        <li><Link to={`/allPages/${userId}`}><a class="dropdown-item" href="#">All Pages</a></Link></li>
-                        {/* <li><a class="dropdown-item" href="#">Settings</a></li> */}
-                        <li><a class="dropdown-item" href="#">Profile</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" onClick={logout} >Log out</a></li>
-                    </ul>
-                </div>
-            </div>
+                </>
+            }
         </>
+
     )
 }
 

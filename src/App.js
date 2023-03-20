@@ -22,6 +22,7 @@ function App() {
         <Route path="createTemplate" index element={<Editor/>}></Route>
         <Route path="useTemplate/:id" index element={<UseTemplate/>}></Route>
         <Route path="template/:tags" index element={<StoreTemplate/>}></Route>
+        <Route path="editTemplate/:id" index element={<Edit/>}></Route>
         
       </Routes>
     </div>

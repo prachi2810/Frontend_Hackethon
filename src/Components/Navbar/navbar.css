@@ -28,6 +28,13 @@
 .nav-login{
   margin-top: 400px;
 }
+.dropdown{
+  border-radius: 10%;
+  background-color: #3AAFA9; 
+}
+.dropdown:hover{
+  background-color: rgba(240, 240, 240);
+}
 
 
 @media screen and (max-width:600px) {

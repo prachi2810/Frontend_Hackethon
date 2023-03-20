@@ -36,6 +36,8 @@ const savePage=async()=>{
                 width: 'auto',
                 // Disable the storage manager for the moment
                 storageManager: false,
+                allowScripts:1,
+
                 // Avoid any default panel
                 plugins: [blocksBasic, presetWebpage],
                 pluginsOpts: {

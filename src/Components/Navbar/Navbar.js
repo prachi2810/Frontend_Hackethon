@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 function Navbar() {
     const [isLogin, setLogin] = useState(false);
     const [Id,setId]=useState(0);
+    const [userNameNav,setUserNameNav]=useState(null);
 
     const {id}=useParams();
     const navigate=useNavigate();
@@ -14,6 +15,8 @@ function Navbar() {
         try {
             const result = await axios.get('http://localhost:8000/user/isLoggedIn', { withCredentials: true })
             setId(result.data.userId);
+            setUserNameNav(result.data.username);
+            // console.log(result.data)
             setLogin(true);
         }
         catch (err) {
@@ -58,7 +61,8 @@ function Navbar() {
                             {isLogin ? 
                                    <li className="nav-item dropdown">
                                      <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                         <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" className="rounded-circle" />
+                                         {/* <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" className="rounded-circle" /> */}
+                                         <span className='avatar'>{userNameNav[0]}</span>
                                      </a>
                                      <ul className="dropdown-menu dropdown-menu-end">
                                          <li><Link to={`/allPages/${Id}`}><a className="dropdown-item" href="#">All Pages</a></Link></li>
