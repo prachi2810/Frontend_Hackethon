@@ -1,6 +1,6 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import AllPages from "./Components/allPages/AllPages";
+import AllPages from "./Components/AllPages/AllPages";
 import Home from "./Components/Home/Home";
 import Editor from "./Components/Editor/Editor";
 import Login from "./Components/Login/SignUpIncomponent";
@@ -23,7 +23,7 @@ function App() {
         <Route path="useTemplate/:id" index element={<UseTemplate/>}></Route>
         <Route path="template/:tags" index element={<StoreTemplate/>}></Route>
         <Route path="editTemplate/:id" index element={<Edit/>}></Route>
-        
+      
       </Routes>
     </div>
   );

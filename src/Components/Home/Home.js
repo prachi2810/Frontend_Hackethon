@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import img from '../../Images/LandingPage1.png';
-import './Home.css';
+import './home.css';
 import { Outlet, Link } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import crousalImg from '../../Images/CrousalImg.jpg';
