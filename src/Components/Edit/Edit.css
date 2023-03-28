@@ -250,13 +250,13 @@ html {
     border: 50%;
 }
 
-.dropdown {
+.dropdownEdit {
     border-radius: 50%;
     background-color: #3AAFA9;
     padding: 5px 5px 6px 12px;
 }
 
-.dropdown:hover {
+.dropdownEdit:hover {
     background-color: rgba(240, 240, 240);
 }
 

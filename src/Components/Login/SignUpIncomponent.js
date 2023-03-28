@@ -27,7 +27,6 @@ function SignUpIncomponent() {
     const [Login, setLogin] = useState(defaultLogin);
     const [email,setEmail]=useState('')
     const[OTP,setOTP]=useState("")
-    // const [err,setErr]=useState('');
 
     const notifyReg = () => toast.success("Successfully Register");
     const notifyLogin = () => toast.success("Successfully Logged In");
@@ -144,8 +143,8 @@ function SignUpIncomponent() {
                                     <span className='hLine1'></span>
                                 </div>
 
-                                <p className='Paragraph'>To keep connected with us <br /> please login with your personal info</p>
-                                <button className='GhostButton' onClick={() => setsignIn(true)}>Sign In</button>
+                                <p className='Paragraph' data-testid="signinButton">To keep connected with us <br /> please login with your personal info</p>
+                                <button className='GhostButton' onClick={() => setsignIn(true)} data-testid="buttonsign">Sign In</button>
                             </div>
 
                         </div>
@@ -191,7 +190,7 @@ function SignUpIncomponent() {
                                     <a href='#' className='Anchor' onClick={() => setfPass(true)}>Forgot Your Password?</a>
                                 </div>
                                 <div className='d-flex justify-content-center align-items-center'>
-                                    <button type="submit" className='Button'>Sign In</button>
+                                    <button type="submit" className='Button' data-testid="signinButt">Sign In</button>
                                     <ToastContainer />
                                 </div>
                             </form>

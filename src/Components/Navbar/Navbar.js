@@ -43,36 +43,35 @@ function Navbar() {
         <>
             <nav className="navbar navbar-expand-lg bg-body-tertiary  shadow navbarClass">
                 <div className="container-fluid">
-                    <Link to="/Home"><a className="navbar-brand" href="#">WEBIFY</a></Link>
+                    <Link to="/Home"><a className="navbar-brand" href="#" data-testid="name">WEBIFY</a></Link>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse rightAlign" id="navbarSupportedContent">
                         <ul className="navbar-nav mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <a className="nav-link" aria-current="page" href="#">Home</a>
+                                <Link to="/" className="nav-link" aria-current="page">Home</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Features</a>
+                                <Link to="/editor" className="nav-link">Features</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Pricing</a>
+                                <Link to="/createTemplate" className="nav-link" id="templates">Templates</Link>
                             </li>
                             {isLogin ? 
                                    <li className="nav-item dropdown">
-                                     <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                         {/* <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" className="rounded-circle" /> */}
+                                     <Link className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                          <span className='avatar'>{userNameNav[0]}</span>
-                                     </a>
+                                     </Link>
                                      <ul className="dropdown-menu dropdown-menu-end">
-                                         <li><Link to={`/allPages/${Id}`}><a className="dropdown-item" href="#">All Pages</a></Link></li>
-                                         <li><a className="dropdown-item" href="#">Profile</a></li>
+                                         <li><Link to={`/allPages/${Id}`}><a className="dropdown-item">All Pages</a></Link></li>
+        
                                          <li><hr className="dropdown-divider" /></li>
                                          <li><a className="dropdown-item" onClick={logout}>Sign Out</a></li>
                                      </ul>
                                  </li> 
-                                 : <li classNameName="nav-item">
-                                    <Link to="/login"><a classNameName="nav-login" href="#">SignUp/Login</a></Link>
+                                 : <li className="nav-item">
+                                    <Link to="/login" className="nav-login">SignUp/Login</Link>
                                 </li>
                                  } 
                         </ul>

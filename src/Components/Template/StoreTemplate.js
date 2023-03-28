@@ -38,25 +38,13 @@ function StoreTemplate() {
         getTemplateByTags();
     }, [])
 
-    // const getTemplateById = async (templateId) => {
-    //     try {
-
-    //         const response = await axios.get(`http://localhost:8000/templates/getTemplate/${templateId}`)
-    //         console.log(response);
-
-    //     }
-    //     catch (err) {
-    //         console.log(err)
-    //     }
-    // }
-
     return (
         <>
 
             {load ?
 
                 <div className='mainBody'>
-                    <div class="containerSpinner">
+                    <div className="containerSpinner">
                         <div class="ring"></div>
                         <div class="ring"></div>
                         <div class="ring"></div>
@@ -67,7 +55,7 @@ function StoreTemplate() {
                 :
                 <>
                     <div>
-                        <button className='buttonStore' onClick={() => { navEditor(); }}>Create Template</button>
+                        <button className='buttonStore' onClick={() => { navEditor(); }} data-testid="template">Create Template</button>
                     </div>
                     <div className='row'>
                         {templates && templates.map(template => {
@@ -77,10 +65,10 @@ function StoreTemplate() {
                                     <figure>
                                         <div class="cardTemplate">
                                             <img src={`data:image/jpeg;base64,${template.thumbnail}`} className="card-img-top" alt="..." />
-                                            <figcaption>Store</figcaption>
+                                            <figcaption>{template._doc.name}</figcaption>
                                             <div className='image__overlay image__overlay--primary'>
-                                                <button type="button" className='btn btn-primary btnTemp' onClick={() => { editTemplate(template._doc._id) }}> Edit</button>
-                                                <button type="button" className='btn btn-outline-primary btnTemp1'> View</button>
+                                                <button type="button" className='btn btn-primary btnTemp' onClick={() => { editTemplate(template._doc._id) }} data-testid="edit"> Edit</button>
+                                                <button type="button" className='btn btn-outline-primary btnTemp1' data-testid="view"> View</button>
                                             </div>
                                         </div>
                                     </figure>

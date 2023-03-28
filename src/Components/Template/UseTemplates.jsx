@@ -6,11 +6,14 @@ import grapesjs from 'grapesjs';
 import presetWebpage from 'grapesjs-preset-webpage';
 import blocksBasic from 'grapesjs-blocks-basic';
 import { useNavigate, useParams } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+
 
 function UseTemplate() {
     const navigate=useNavigate()
   const [editor,setEditor]=useState(null);
   const { id } = useParams();
+  const notifySave = () => toast.success("Successfully Saved");
 
 const savePage=async()=>{
     const newHtml = editor.getHtml();
@@ -415,55 +418,9 @@ const savePage=async()=>{
             <div id='navbar' className='sidenav d-flex flex-column overflow-scroll'>
                 <nav className='navbar navbar-light'>
                     <div className='container-fluid'>
-                        <span className='navbar-brand mb-0 h3 logo'>Webify</span>
+                        <span className='navbar-brand mb-0 h3 logo' data-testid="name">Webify</span>
                     </div>
                 </nav>
-                <div className='my-2 d-flex flex-column'>
-                    <button
-                        type='button'
-                        className='btn btn-outline-secondary btn-sm mb-2 mx-2'
-                        data-bs-toggle='modal'
-                        data-bs-target='#addPageModal'
-                    >
-                        <i className='bi bi-plus'></i>
-                        Add Page
-                    </button>
-                    <ul className='list-group pages'>
-                        <li className='list-group-item d-flex justify-content-between align-items-center'>
-                            Home
-                            <div className='m-2'>
-                                <button className='btn btn-sm btn-outline-primary'>
-                                    <i className='bi bi-pencil'></i>
-                                </button>
-                                <button className='btn btn-sm btn-outline-danger'>
-                                    <i className='bi bi-trash'></i>
-                                </button>
-                            </div>
-                        </li>
-                        <li className='list-group-item d-flex justify-content-between align-items-center'>
-                            About
-                            <div className='m-2'>
-                                <button className='btn btn-sm btn-outline-primary'>
-                                    <i className='bi bi-pencil'></i>
-                                </button>
-                                <button className='btn btn-sm btn-outline-danger'>
-                                    <i className='bi bi-trash'></i>
-                                </button>
-                            </div>
-                        </li>
-                        <li className='list-group-item d-flex justify-content-between align-items-center'>
-                            Contact Us
-                            <div className='m-2'>
-                                <button className='btn btn-sm btn-outline-primary'>
-                                    <i className='bi bi-pencil'></i>
-                                </button>
-                                <button className='btn btn-sm btn-outline-danger'>
-                                    <i className='bi bi-trash'></i>
-                                </button>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
                 <div className=''>
                     <ul className='nav nav-tabs' id='myTab' role='tablist'>
                         <li className='nav-item' role='presentation'>
@@ -561,13 +518,8 @@ const savePage=async()=>{
                 </div>
             </div>
             <div className='main-content'>
-                {/* <nav className='navbar navbar-light'>
-                    <div className='container-fluid'>
-                        <div className='panel__devices'></div>
-                        <div className='panel__basic-actions'></div>
-                    </div>
-                </nav> */}
-                <button className='btn btn-primary' onClick={savePage}>Save</button>
+                <button className='savebtn' onClick={()=>{savePage();notifySave()}} data-testid="but">Save</button>
+                <ToastContainer />
                 <div id='editor'></div>
                 <div
                     className='modal fade'

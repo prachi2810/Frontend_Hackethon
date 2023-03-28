@@ -21,7 +21,7 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { useParams, useLocation } from 'react-router-dom';
 
-function LandingPage() {
+function Home() {
     const nav = useNavigate()
     const checkLogin = async () => {
         try {
@@ -54,9 +54,9 @@ function LandingPage() {
             <Navbar />
             <div className='row sideImage mt-5 '>
                 <div className="col-md-5 d-flex sideDiv">
-                    <h1 className='mb-4 mt-4 title'>Create a Website Without Limits</h1>
+                    <h1 className='mb-4 mt-4 title' data-testid='name'>Create a Website Without Limits</h1>
                     <p className='subtitle'>Create a Website with our webify website builder. No coding experience required</p>
-                    <button className='btnVal' onClick={checkLogin}>Get Started</button>
+                    <button className='btnVal' onClick={checkLogin} data-testid="homeButton">Get Started</button>
                 </div>
                 <div className="col-md-5 d-flex align-items-center">
                     <img src={img} alt="image" width="800" className='imageClass' />
@@ -69,7 +69,7 @@ function LandingPage() {
 
                 <div className='row d-flex justify-content-center threeStyle'>
                     <div className='col-md-3 top-line'>
-                        <h4 className='mt-3 threeCol'>
+                        <h4 className='mt-3 threeCol' data-testid='title'>
                             Unlimited creation
                         </h4>
                         <p className='mt-3'>
@@ -98,38 +98,17 @@ function LandingPage() {
                 </div>
             </div>
             <div className='template text-center'>
-                <div className='d-flex justify-content-center'>
+                <div className='d-flex justify-content-center' id="templates">
                     <h1>Website templates that set <br />you up for success</h1>
                 </div>
                 <div className='d-flex justify-content-center'>
-                    <h6 className='subheading'>Get a headstart on your journey with 900+ free, customizable website templates, strategically
+                    <h6 className='subheading' data-testid="para">Get a headstart on your journey with 900+ free, customizable website templates, strategically
                         researched and tailored for every industry — or start from a blank canvas on our website builder.</h6>
                 </div>
                 <div className='d-flex justify-content-center'>
-                    <button className='btnVal1'>Get Started</button>
+                    <button className='btnVal1' onClick={checkLogin}>Get Started</button>
                 </div>
                 <div className='crousal'>
-                    {/* <div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false" data-bs-interval="false">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src={crousalImg1} className='crousalImg' alt="..." />
-                            </div>
-                            <div class="carousel-item">
-                                <img src={crousalImg} className="crousalImg" alt="..." />
-                            </div>
-                            <div class="carousel-item">
-                                <img src={img} className="crousalImg" alt="..." />
-                            </div>
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div> */}
                     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-indicators">
                             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -164,12 +143,6 @@ function LandingPage() {
                                     <span class="pricetag-right " id="swc">Fashion</span>
                                 </div>
                             </div>
-                            {/* <div class="carousel-item" data-bs-interval="20000">
-                                <img src={restaurant} class="crousalImg" alt="..." />
-                                <div class="carousel-caption d-none d-md-block">
-                                    <p className='bg-dark'>Restaurant</p>
-                                </div>
-                            </div> */}
                             <div class="carousel-item" data-bs-interval="20000">
                                 <img src={food1} onClick={() => { navFunFood() }} class="crousalImg" alt="..." />
                                 <div className='tagClass'>
@@ -190,7 +163,7 @@ function LandingPage() {
             </div>
             <div className='d-flex extraClass'>
                 <div className='container d-flex justify-content-center flex-column'>
-                    <h1 className='mt-5 mb-5'>All You Need And More</h1>
+                    <h1 className='mt-5 mb-5' data-testid="card">All You Need And More</h1>
                     <div className="row cardRow">
                         <div className="col-md-3 mt-5 cardClass">
                             <div class="card behindcard">
@@ -255,9 +228,9 @@ function LandingPage() {
                     <div className='container'>
                         <div className='row mb-5 pb-5'>
                             <div className='col-md-6'>
-                                <h1 className='dropdownheading mt-5 mb-5'>Build your own website in a few steps</h1>
+                                <h1 className='dropdownheading mt-5 mb-5' data-testid="element">Build your own website in a few steps</h1>
                                 <h6 className='dropdownheading'>Start your business website today, no credit card required.</h6>
-                                <button className='btnVal2'>Get Started</button>
+                                <button className='btnVal2' onClick={checkLogin}>Get Started</button>
                             </div>
                             <div className='col-md-6 mt-5 d-flex justify-content-center'>
                                 <div class="accordion accordion-flush" id="accordionFlushExample">
@@ -325,4 +298,4 @@ function LandingPage() {
     )
 }
 
-export default LandingPage;
+export default Home;

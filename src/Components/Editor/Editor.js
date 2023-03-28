@@ -443,7 +443,7 @@ function Editor() {
     }
     return (
         <>
-            {load ?
+            {/* {load ?
 
                 <div className='mainBody'>
                     <div class="containerSpinner">
@@ -455,11 +455,11 @@ function Editor() {
 
                 </div>
                 :
-                <>
+                <> */}
                     <div className='sidenav'>
                         <nav className='navbar navbar-light'>
                             <div className='container-fluid'>
-                                <span className='navbar-brand mb-0 h3 logo'>Webify</span>
+                                <div className='navbar-brand mb-0 h3 logo' data-testid='name'>Webify</div>
                             </div>
                         </nav>
                         <div className='tabs'>
@@ -562,59 +562,59 @@ function Editor() {
 
                     <div className='main-content'>
                         <div id='editor'></div>
-                        <button className='savebtn' data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" >Save<img src={save} width="25" alt="save" /></button>
+                        <button className='savebtn' data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" data-testid='clickbutton'>Save<img src={save} width="25" alt="save" /></button>
                         <ToastContainer />
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Page</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div className="modal-dialog">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h1 className="modal-title fs-5" id="exampleModalLabel">Add Page</h1>
+                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body">
+                                    <div className="modal-body">
                                         <form>
-                                            <div class="mb-3">
-                                                <label for="recipient-name" class="col-form-label">Title:</label>
-                                                <input type="text" class="form-control" id="recipient-name" onChange={(e) => setName(e.target.value)} required />
+                                            <div className="mb-3">
+                                                <label for="recipient-name" className="col-form-label">Title:</label>
+                                                <input type="text" className="form-control" id="recipient-name" onChange={(e) => setName(e.target.value)} placeholder="Title" required />
                                                 {/* <label for="recipient-name" class="col-form-label">Domain:</label>
                                         <input type="text" class="form-control" id="recipient-name" onChange={(e) => setDomain(e.target.value)} required/> */}
                                                 {!isPathEditor &&
-                                                    <><label for="tags" class="col-form-label">Tags:</label>
+                                                    <><label for="tags" className="col-form-label">Tags:</label>
                                                         <TagsInput id='tags' name="tags" placeHolder="Add Tags" onChange={saveTags} required />
                                                         <em>press enter to add new tag</em><br></br>
-                                                        <label for="recipient-name" class="col-form-label">Add Thumbnail</label><br></br>
-                                                        <input type="file" onChange={(e) => { console.log(e.target.files[0]); setThumbnail(e.target.files[0]) }}></input></>}
+                                                        <label for="recipient-name" className="col-form-label">Add Thumbnail</label><br></br>
+                                                        <input type="file" onChange={(e) => { console.log(e.target.files[0]); setThumbnail(e.target.files[0]) }} placeholder="Add Picture"></input></>}
 
                                             </div>
 
                                         </form>
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary" onClick={() => { savePage(); notifySave() }} disabled={name == null || tags == null} data-bs-dismiss="modal">Save</button>
+                                    <div className="modal-footer">
+                                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" data-testid="close">Close</button>
+                                        <button type="button" className="btn btn-primary" onClick={() => { savePage(); notifySave() }} disabled={name == null || tags == null} data-bs-dismiss="modal" data-testid="saveButt">Save</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="profile">
-                            <div className='dropdown'>
-                                <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div className="profile">
+                            <div className='dropdownEdit'>
+                                <Link className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-testid='togglebutton'>
                                     {/* <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle" /> */}
                                     <span className='avatar'>{userNameNav[0]}</span>
-                                </a>
-                                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                                    <li><Link to={`/allPages/${userId}`}><a class="dropdown-item" href="#">All Pages</a></Link></li>
+                                </Link>
+                                <ul className="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                                    <li><Link to={`/allPages/${userId}`}><a className="dropdown-item" href="#" data-testid="allpagesbutt">All Pages</a></Link></li>
                                     {/* <li><a class="dropdown-item" href="#">Settings</a></li> */}
-                                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                                    <li><hr class="dropdown-divider" /></li>
-                                    <li><a class="dropdown-item" onClick={logout} >Log out</a></li>
+                                    <li><Link to="/" className="dropdown-item" data-testid="homebutt">Home</Link></li>
+                                    <li><hr className="dropdown-divider" /></li>
+                                    <li><a className="dropdown-item" onClick={logout} >Log out</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </>
-            }
-        </>
+        //     }
+        // </>
     )
 }
 

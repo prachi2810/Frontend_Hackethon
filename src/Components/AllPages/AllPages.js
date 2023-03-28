@@ -4,7 +4,6 @@ import axios from 'axios';
 import './allPages.css';
 import { useNavigate, useParams } from "react-router-dom";
 import Navbar from '../Navbar/Navbar';
-// import { async } from 'q';
 
 function AllPages() {
 
@@ -29,7 +28,7 @@ function AllPages() {
 
 
 
-    useEffect(async () => {
+    useEffect( () => {
         const getData = async () => {
             try {
                 setLoad(true);
@@ -71,7 +70,7 @@ function AllPages() {
                     <div className="container">
                         <div className='row first'>
                             <div className='titlePage'>
-                                <h3>All Pages</h3>
+                                <h3 data-testid='allpages'>All Pages</h3>
                             </div>
                         </div>
                         <div className='d-flex justify-content-center searchDiv'>
@@ -86,7 +85,7 @@ function AllPages() {
                         </div>
                         <div className='headerPage'>
                             <div className='row'>
-                                <div className='col-md-2'>
+                                <div className='col-md-2' data-testid="title">
                                     <h6>Title</h6>
                                 </div>
                                 <div className="col-md-2">
@@ -113,20 +112,20 @@ function AllPages() {
                             return (
                                 <div className='shadow contentPage'>
                                     <div className='row'>
-                                        <div className='col-md-2'>
+                                        <div className='col-md-2' data-testid="pageName">
                                             <h6>{page.name}</h6>
                                         </div>
-                                        <div className="col-md-2">
+                                        <div className="col-md-2" data-testid="pageDate">
                                             <h6>{page.date.slice(0, 10)}</h6>
                                         </div>
-                                        <div className="col-md-2">
+                                        <div className="col-md-2" data-testid="pageDomain">
                                             <h6>Primary</h6>
                                         </div>
                                         <div className="col-md-2">
                                             <Link to={`/edit/${page._id}`}><h6><i class="bi bi-pencil-square"></i></h6></Link>
                                         </div>
                                         <div className="col-md-2">
-                                            <button className='deleteBut' onClick={() => { deletePage(page._id) }}>
+                                            <button className='deleteBut' onClick={() => { deletePage(page._id) }} data-testid='delete'>
                                                 <i class="bi bi-trash-fill"></i>
                                             </button>
 
@@ -140,31 +139,6 @@ function AllPages() {
 
                         }
                     </div >
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Page</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form>
-                                        <div class="mb-3">
-                                            <label for="recipient-name" class="col-form-label">Title:</label>
-                                            <input type="text" class="form-control" id="recipient-name" />
-                                            <label for="recipient-name" class="col-form-label">Domain:</label>
-                                            <input type="text" class="form-control" id="recipient-name" />
-                                        </div>
-
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </>
             }
         </>

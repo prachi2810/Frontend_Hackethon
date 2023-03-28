@@ -11,7 +11,7 @@ import StoreTemplate from "./Components/Template/StoreTemplate";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" data-testid="app">
       <Routes>
         <Route path="" index element={<Home />}></Route>
         <Route path="home" index element={<Home />}></Route>
