@@ -180,6 +180,15 @@
     align-items: center;
 }
 
+.textOtp{
+    font-size:17px;
+    font-weight: 500;
+    line-height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 @media screen and (max-width:600px) {
     .rowClass {
         height: 50vh;

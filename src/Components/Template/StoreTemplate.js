@@ -68,7 +68,7 @@ function StoreTemplate() {
                                             <figcaption>{template._doc.name}</figcaption>
                                             <div className='image__overlay image__overlay--primary'>
                                                 <button type="button" className='btn btn-primary btnTemp' onClick={() => { editTemplate(template._doc._id) }} data-testid="edit"> Edit</button>
-                                                <button type="button" className='btn btn-outline-primary btnTemp1' data-testid="view"> View</button>
+                                                <button type="button" className='btn btn-outline-primary btnTemp1' data-testid="view" onClick={() => { editTemplate(template._doc._id) }}> View</button>
                                             </div>
                                         </div>
                                     </figure>

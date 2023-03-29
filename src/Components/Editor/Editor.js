@@ -78,7 +78,12 @@ function Editor() {
 
             }
             else {
-                console.log("create")
+                let status='private';
+                let isApproved=false;
+                if(currentPath=='/contributeTemplate')
+                status='public';
+                formData.append('status',status);
+                formData.append('isApproved',isApproved);
                 let newWebsite = await axios.post('http://localhost:8000/templates/saveTemplate', formData, {
                     headers: { 'Content-Type': 'multipart/form-data' }
                 })
@@ -97,6 +102,7 @@ function Editor() {
     useEffect(() => {
         if (currentPath !== '/editor')
             setPathEditor(false);
+
         const checkLogin = async () => {
             try {
 

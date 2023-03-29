@@ -56,7 +56,7 @@ function Navbar() {
                                 <Link to="/editor" className="nav-link">Features</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/createTemplate" className="nav-link" id="templates">Templates</Link>
+                                <Link to="/allTemplate" className="nav-link" id="templates">Templates</Link>
                             </li>
                             {isLogin ? 
                                    <li className="nav-item dropdown">

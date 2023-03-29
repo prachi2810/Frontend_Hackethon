@@ -23,11 +23,12 @@ function SignUpIncomponent() {
     const [fPass, setfPass] = useState(false);
     const [toggle, setToggle] = useState(false);
     const [loaded, setLoaded] = useState(false);
+    const [nPass,setnPass]=useState(false);
     const [Reg, setReg] = useState(defaultReg);
     const [Login, setLogin] = useState(defaultLogin);
-    const [email,setEmail]=useState('')
+    const [email,setEmail]=useState('');
     const[OTP,setOTP]=useState("")
-
+     const[password,setPassword]=useState('');
     const notifyReg = () => toast.success("Successfully Register");
     const notifyLogin = () => toast.success("Successfully Logged In");
 
@@ -97,13 +98,22 @@ function SignUpIncomponent() {
     }
     const submitOTP = async () => {
         console.log(userName)
+        setToggle(false);setnPass(true);
         const response = await axios.get(`http://localhost:8000/user/verifyOTP`, { params: { username: userName, code: OTP } })
         console.log(response)
+    }
+    const forgotPass=async ()=>{
+        const response = await axios.put(`http://localhost:8000/user/forgotPassword`,{ username: userName, password:password} )
+        console.log(response)
+    }
+    const setNewPassword=async(e)=>{
+        setPassword(e.target.value)
+        console.log(password)
     }
     return (
         <>
             <div className='row d-flex justify-content-center align-items-center rowClass'>
-                {!fPass && !signIn && (
+                {!nPass && !fPass && !signIn && (
                     <>
                         <div className='col-md-8 d-flex justify-content-center align-items-center SignUpContainer'>
                             <form className='FormStyle' onSubmit={handleSubmitReg}>
@@ -166,7 +176,7 @@ function SignUpIncomponent() {
                         </div>
 
                     </div>
-                    {!fPass && !toggle &&
+                    {!nPass && !fPass && !toggle &&
                         <div className='col-md-8 d-flex justify-content-center align-items-center'>
                             <form className='FormStyle' onSubmit={handleSubmit}>
                                 <h1 className='Title'>Sign in to Account</h1>
@@ -212,6 +222,18 @@ function SignUpIncomponent() {
                                 <form className='Form'>
                                     <input id="text" maxLength={4} className='Input' type="text" placeholder='Enter OTP' onChange={(e) => { setOTP(e.target.value); console.log(OTP) }} />
                                     <button className='Button' onClick={submitOTP}>Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    }
+                    {
+                        nPass &&
+                        <div className='col-md-8 d-flex justify-content-center align-items-center'>
+                            <div>
+                                <form className='Form'>
+                           
+                                    <input id="password" className='Input' type="text" placeholder='New Password' onChange={(e) => { setNewPassword(e)}} />
+                                    <button className='Button' onClick={forgotPass}>Submit</button>
                                 </form>
                             </div>
                         </div>
